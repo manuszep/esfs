@@ -1,0 +1,18 @@
+<div
+  class="esfs-layout"
+  [class.esfs-layout--disabled]="disabled"
+  [class.esfs-layout--no-label]="!label"
+  [class.esfs-layout--error]="hasError"
+>
+  <span class="esfs-layout__icon esfs-layout__icon--before material-symbols-outlined" *ngIf="iconBefore">{{iconBefore}}</span>
+  <span class="esfs-layout__icon esfs-layout__icon--after material-symbols-outlined" *ngIf="iconAfter">{{iconAfter}}</span>
+
+  <span class="esfs-layout__text esfs-layout__text--before" *ngIf="textBefore">{{ textBefore | translate }}</span>
+  <span class="esfs-layout__text esfs-layout__text--after" *ngIf="textAfter">{{ textAfter | translate }}</span>
+
+  <div class="esfs-layout__control">
+    <label *ngIf="label" [for]="id">{{ label | translate }}</label>
+
+    <ng-content></ng-content>
+  </div>
+</div>

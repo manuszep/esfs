@@ -1,0 +1,13 @@
+<esfs-layout
+  [id]="control.uuid"
+  [disabled]="control.disabled"
+  [iconBefore]="control.iconBefore"
+  [iconAfter]="control.iconAfter"
+  [label]="label"
+  [textBefore]="textBefore"
+  [textAfter]="textAfter"
+  [hasError]="!!error()"
+  >
+  <input [id]="control.uuid" [type]="control.type" [formControl]="control" [placeholder]="placeholder | translate">
+</esfs-layout>
+

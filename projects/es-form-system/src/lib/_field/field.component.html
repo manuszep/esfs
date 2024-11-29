@@ -1,0 +1,9 @@
+<ng-container [ngSwitch]="control.controlType">
+  <esfs-text
+    #fld
+    *ngSwitchCase="'text'"
+    [name]="name"
+    [form]="form"
+    [control]="$any(control)"
+  ></esfs-text>
+</ng-container>

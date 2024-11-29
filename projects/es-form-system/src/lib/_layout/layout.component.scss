@@ -1,0 +1,150 @@
+@property --esfs-layout-spacing {
+  syntax: "<length>";
+  initial-value: 10px;
+  inherits: true;
+}
+
+@property --esfs-layout-transition-duration {
+  syntax: "<time>";
+  initial-value: .3s;
+  inherits: true;
+}
+
+@property --esfs-layout-color-text {
+  syntax: "<color>";
+  initial-value: #999;
+  inherits: true;
+}
+
+@property --esfs-layout-color-neutral {
+  syntax: "<color>";
+  initial-value: #999;
+  inherits: true;
+}
+
+@property --esfs-layout-color-error {
+  syntax: "<color>";
+  initial-value: #e22235;
+  inherits: true;
+}
+
+@property --esfs-layout-color-focus {
+  syntax: "<color>";
+  initial-value: #ffda52;
+  inherits: true;
+}
+
+@property --esfs-layout-line-height {
+  syntax: "<length>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@mixin esfs-layout-block {
+  display: block;
+  border: 2px solid var(--esfs-layout-color-neutral);
+  border-width: 0 0 2px 0;
+  outline: none;
+  background-color: transparent;
+  transition: border-color var(--esfs-layout-transition-duration);
+  padding: calc(var(--esfs-layout-spacing) / 2) var(--esfs-layout-spacing);
+}
+
+.esfs-layout {
+  display: flex;
+  line-height: var(--esfs-layout-line-height);
+
+  &:has(input:focus), &:has(select:focus) {
+    --esfs-layout-color-neutral: var(--esfs-layout-color-focus);
+    --esfs-layout-color-text: var(--esfs-layout-color-focus);
+  }
+
+  &--error {
+    --esfs-layout-color-neutral: var(--esfs-layout-color-error);
+    --esfs-layout-color-text: var(--esfs-layout-color-error);
+  }
+
+  &__control {
+    position: relative;
+    order: 30;
+    flex-grow: 1;
+
+    label {
+      display: block;
+      position: absolute;
+      left: var(--esfs-layout-spacing);
+      top: calc(var(--esfs-layout-spacing) + 1px);
+      line-height: 1;
+      transition: font-size, top, left, color, opacity;
+      transition-duration: var(--esfs-layout-transition-duration);
+      pointer-events: none;
+      opacity: 0.5;
+      z-index: 1;
+      color: var(--esfs-layout-color-text);
+    }
+
+    &:not(
+      :has(input:placeholder-shown)
+    ):not(
+      :has(select.cadrart-field-select__has-no-value)
+    ):not(
+      :has(input.has-no-value)
+    ),
+    :has(input:-webkit-autofill),
+    &:has(input:focus),
+    &:has(select:focus) {
+      label {
+        top: calc(var(--esfs-layout-spacing) * -0.5);
+        font-size: 80%;
+      }
+    }
+
+    /*&:has(input:focus),
+    &:has(select:focus) {
+      label {
+        color: var(--esfs-layout-color-active);
+        opacity: 1;
+      }
+    }*/
+
+    input, select {
+      @include esfs-layout-block;
+      width: 100%;
+      min-width: 40px;
+      appearance: none;
+      -moz-appearance: textfield;
+      line-height: inherit;
+
+      &::placeholder {
+        transition: opacity var(--esfs-layout-transition-duration);
+        opacity: 0;
+      }
+
+      &:focus {
+        &::placeholder {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    select {
+      select {
+        -moz-appearance: none;
+      }
+    }
+  }
+
+  &__text {
+    @include esfs-layout-block;
+    line-height: inherit;
+    color: var(--esfs-layout-color-text);
+
+    &--before {
+      order: 20;
+    }
+
+    &--after {
+      order: 40;
+    }
+  }
+}
