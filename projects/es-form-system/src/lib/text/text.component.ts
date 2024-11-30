@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { EsfsFieldComponent } from '../_common/field.component';
 
-import { EsfsFormControlText, IESFSTextConfig } from './text.model';
+import { EsfsFormControlText } from './text.model';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -28,6 +28,5 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class EsfsTextComponent<TValue = string> extends EsfsFieldComponent<
   TValue,
-  IESFSTextConfig,
   EsfsFormControlText<TValue>
 > {}

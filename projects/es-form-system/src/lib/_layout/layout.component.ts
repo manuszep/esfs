@@ -19,8 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
 export class EsfsLayoutComponent {
   @Input() id?: string;
   @Input() label?: string;
-  @Input() iconBefore?: string;
-  @Input() iconAfter?: string;
+  @Input() iconBefore?: string | false;
+  @Input() iconAfter?: string | false;
   @Input() textBefore?: string;
   @Input() textAfter?: string;
   @Input() disabled = false;

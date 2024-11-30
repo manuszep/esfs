@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="control.controlType">
+<ng-container [ngSwitch]="control.fieldType">
   <esfs-text
     #fld
     *ngSwitchCase="'text'"
@@ -6,4 +6,7 @@
     [form]="form"
     [control]="$any(control)"
   ></esfs-text>
+  <div *ngIf="control.errors && (control.dirty || control.touched)" class="esfs-field-error">
+    {{ control.errors | esfsFormError : control.keyPrefix() + '.' + name }}
+  </div>
 </ng-container>

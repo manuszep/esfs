@@ -30,6 +30,7 @@ export class AppComponent {
       textBefore: true,
       updateOn: 'change',
       required: true,
+      minLength: 3,
     });
 
     this.form = new EsfsFormGroup(

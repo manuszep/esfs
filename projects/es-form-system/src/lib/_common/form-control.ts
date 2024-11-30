@@ -1,72 +1,123 @@
+import { signal, WritableSignal } from '@angular/core';
 import {
+  AbstractControl,
   AsyncValidatorFn,
   FormControl,
   FormControlState,
   ValidatorFn,
-  Validators,
 } from '@angular/forms';
 
-import {
-  IESFSFieldConfig,
-  IESFSFieldConfigWithDecorators,
-} from './field-config';
+import { IEsfsFieldType, IEsfsSignalConfigToSimpleConfig } from './types';
+import { esfsValidators, IEsfsValidationError } from './validators';
 
-export type IEsfsControlType = 'text' | 'radio' | 'checkbox' | 'select';
+export type IEsfsFormControlConfig<TValue> = Partial<
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControl<TValue>>
+>;
 
 export abstract class EsfsFormControl<
-  TValue = any,
-  TConfig extends IESFSFieldConfig = IESFSFieldConfig
+  TValue = any
 > extends FormControl<TValue | null> {
-  public abstract controlType: IEsfsControlType;
-  public uuid = crypto.randomUUID();
-  public keyPrefix = '';
-  public label = true;
-  public assistiveText = false;
-  public required = false;
-  public autofocus = false;
-  public tabIndex = 0;
-  public validation = [] as ValidatorFn[];
-  public asyncValidation = [] as AsyncValidatorFn[];
-  public formToFieldMapper = (value: TValue) => value;
-  public fieldToFormMapper = (value: TValue) => value;
+  public guid: string = crypto.randomUUID();
 
-  constructor(value: TValue, config?: TConfig) {
+  public keyPrefix: WritableSignal<string> = signal('');
+  public required: WritableSignal<boolean> = signal(true);
+  public autofocus: WritableSignal<boolean> = signal(false);
+  public tabIndex: WritableSignal<number> = signal(0);
+  public label: WritableSignal<string | boolean> = signal(true);
+  public placeholder: WritableSignal<string | boolean> = signal(true);
+  public help: WritableSignal<string | boolean> = signal(false);
+
+  public abstract fieldType: IEsfsFieldType;
+
+  protected originalValidators: ValidatorFn[] = [];
+  protected originalAsyncValidators: AsyncValidatorFn[] = [];
+  protected formToFieldMapper: (value: TValue) => any = (value: TValue) =>
+    value;
+  protected fieldToFormMapper: (value: any) => TValue = (value: any) => value;
+
+  constructor(value: TValue, config: IEsfsFormControlConfig<TValue>) {
     super(
       {
-        value: value,
-        disabled: config?.disabled,
-      } as FormControlState<TValue>,
+        value,
+        disabled: config.disabled ?? false,
+      } as FormControlState<TValue | null>,
       {
-        updateOn: config?.updateOn ?? 'blur',
-        validators: config?.validation,
-        asyncValidators: config?.asyncValidation,
+        updateOn: config.updateOn ?? 'change',
+        validators: config.validators ?? [],
+        asyncValidators: config.asyncValidators ?? [],
       }
     );
-
-    this.updateConfig(config || ({} as TConfig));
   }
 
-  public updateConfig(config: TConfig): void {
-    this.keyPrefix = config.keyPrefix || this.keyPrefix;
-    this.label = config.label ?? this.label;
-    this.assistiveText = config.assistiveText ?? this.assistiveText;
-    this.required = config.required ?? this.required;
-    this.autofocus = config.autofocus ?? this.autofocus;
-    this.tabIndex = config.tabIndex ?? this.tabIndex;
-    this.validation = config.validation ?? this.validation;
-    this.asyncValidation = config.asyncValidation ?? this.asyncValidation;
+  public updateConfig(config?: IEsfsFormControlConfig<TValue>): void {
+    const configKeys = Object.keys(config ?? {}) as Array<keyof typeof config>;
+
+    if (!config) {
+      return;
+    }
+
+    for (const key of configKeys.filter(
+      (value: string) =>
+        ![
+          'updateOn',
+          'disabled',
+          'validators',
+          'asyncValidators',
+          'formToFieldMapper',
+          'fieldToFormMapper',
+        ].includes(value)
+    )) {
+      if (
+        typeof this[key] === 'undefined' ||
+        typeof (this[key] as WritableSignal<unknown>).set !== 'function'
+      ) {
+        throw new Error(
+          `Property ${key as string} does not exist on ${this.constructor.name}`
+        );
+      }
+
+      (this[key] as WritableSignal<unknown>).set(config[key]);
+    }
+
+    this.originalValidators = config.validators ?? [];
+    this.originalAsyncValidators = config.asyncValidators ?? [];
     this.formToFieldMapper = config.formToFieldMapper ?? this.formToFieldMapper;
     this.fieldToFormMapper = config.fieldToFormMapper ?? this.fieldToFormMapper;
-
-    this.setupValidators();
   }
 
-  setupValidators(): void {
-    if (this.required) {
-      this.addValidators([Validators.required]);
-    }
+  public resetValidators(): void {
+    this.setValidators(this.originalValidators);
+    this.setAsyncValidators(this.originalAsyncValidators);
+  }
+
+  protected buildValidatorsArray(): ValidatorFn[] {
+    const validators: ValidatorFn[] = [];
+
+    /**
+     * Signals can change and if we setup the validators according to the current config, it may not be valid later on
+     *
+     * So we set a validator for all cases anyways and inside it, we access the values of the signals.
+     * So the values of the signals are checked every time a validator runs.
+     */
+    validators.push((control: AbstractControl): IEsfsValidationError => {
+      const required = this.required();
+
+      if (!required) {
+        return null;
+      }
+
+      return esfsValidators.required()(control);
+    });
+
+    return validators;
+  }
+
+  protected setupValidators(): void {
+    this.setValidators(this.buildValidatorsArray());
   }
 }
+
+/*
 
 export abstract class EsfsFormControlWithDecorators<
   TValue,
@@ -86,3 +137,4 @@ export abstract class EsfsFormControlWithDecorators<
     this.textAfter = config.textAfter ?? this.textAfter;
   }
 }
+*/

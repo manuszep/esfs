@@ -1,5 +1,6 @@
 import { AbstractControlOptions, FormGroup } from '@angular/forms';
 import { EsfsFormControl } from './form-control';
+import { signal } from '@angular/core';
 
 export class EsfsFormGroup<
   TForm extends Record<string, EsfsFormControl | EsfsFormGroup> = Record<
@@ -7,7 +8,7 @@ export class EsfsFormGroup<
     EsfsFormControl
   >
 > extends FormGroup {
-  public keyPrefix = '';
+  public keyPrefix = signal('');
   public persistToSessionStorage: string | false;
 
   constructor(
@@ -24,13 +25,13 @@ export class EsfsFormGroup<
   }
 
   private updateControlsKeyPrefix(keyPrefix: string): void {
-    this.keyPrefix = keyPrefix;
+    this.keyPrefix.set(keyPrefix);
 
     Object.keys(this.controls).forEach((key) => {
       const control = this.controls[key];
 
       if (control instanceof EsfsFormControl) {
-        control.keyPrefix = keyPrefix;
+        control.keyPrefix.set(keyPrefix);
       } else if (control instanceof EsfsFormGroup) {
         control.updateControlsKeyPrefix(keyPrefix);
       }

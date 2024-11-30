@@ -47,7 +47,7 @@
   outline: none;
   background-color: transparent;
   transition: border-color var(--esfs-layout-transition-duration);
-  padding: calc(var(--esfs-layout-spacing) / 2) var(--esfs-layout-spacing);
+  padding: calc(var(--esfs-layout-spacing)) var(--esfs-layout-spacing) 0;
 }
 
 .esfs-layout {
@@ -73,7 +73,7 @@
       display: block;
       position: absolute;
       left: var(--esfs-layout-spacing);
-      top: calc(var(--esfs-layout-spacing) + 1px);
+      top: calc(var(--esfs-layout-spacing) * 1.5 + 1px);
       line-height: 1;
       transition: font-size, top, left, color, opacity;
       transition-duration: var(--esfs-layout-transition-duration);
@@ -94,7 +94,7 @@
     &:has(input:focus),
     &:has(select:focus) {
       label {
-        top: calc(var(--esfs-layout-spacing) * -0.5);
+        top: 0;
         font-size: 80%;
       }
     }

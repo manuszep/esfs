@@ -11,10 +11,10 @@ import {
 } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 
-import { IESFSFieldConfig } from '../_common/field-config';
 import { EsfsFormControl } from '../_common/form-control';
 import { EsfsFormGroup } from '../_common';
 import { EsfsTextComponent } from '../text';
+import { EsfsFormErrorPipe } from '../_common/error.pipe';
 
 @Component({
   selector: 'esfs-field',
@@ -23,17 +23,12 @@ import { EsfsTextComponent } from '../text';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [CommonModule, EsfsTextComponent],
+  imports: [CommonModule, EsfsTextComponent, EsfsFormErrorPipe],
 })
-export class EsfsFieldComponent<
-  TValue,
-  TConfig extends IESFSFieldConfig = IESFSFieldConfig
-> implements OnInit
-{
-  @Input({ required: false }) config?: TConfig;
+export class EsfsFieldComponent<TValue> implements OnInit {
   @Input({ required: true }) name!: string;
 
-  public control!: EsfsFormControl<TValue, TConfig>;
+  public control!: EsfsFormControl<TValue>;
   public form!: EsfsFormGroup;
 
   constructor(
@@ -46,7 +41,7 @@ export class EsfsFieldComponent<
       if (this.name) {
         this.control = this.controlContainer?.control?.get(
           this.name
-        ) as EsfsFormControl<TValue, TConfig>;
+        ) as EsfsFormControl<TValue>;
         this.form = this.controlContainer.control as EsfsFormGroup;
       } else {
         console.warn(

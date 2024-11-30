@@ -1,5 +1,11 @@
-import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
-import { IESFSFieldConfig } from './field-config';
+import {
+  Component,
+  computed,
+  Input,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { EsfsFormControl } from './form-control';
 import { EsfsFormGroup } from './form-group';
 import { FormGroup } from '@angular/forms';
@@ -11,8 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export abstract class EsfsFieldComponent<
   TValue,
-  TConfig extends IESFSFieldConfig,
-  TControl extends EsfsFormControl<TValue, TConfig> | EsfsFormGroup
+  TControl extends EsfsFormControl<TValue>
 > implements OnInit, OnDestroy
 {
   @Input({ required: true }) control!: TControl;
@@ -22,11 +27,11 @@ export abstract class EsfsFieldComponent<
   public isValid = signal(true);
   public error = signal<string | null>('');
 
-  public label = '';
-  public placeholder = '';
-  public assistiveText = '';
-  public textBefore = '';
-  public textAfter = '';
+  public label = signal('').asReadonly();
+  public placeholder = signal('').asReadonly();
+  public assistiveText = signal('').asReadonly();
+  public textBefore = signal('').asReadonly();
+  public textAfter = signal('').asReadonly();
 
   protected _unsubscribe = new Subject<void>();
 
@@ -54,17 +59,18 @@ export abstract class EsfsFieldComponent<
 
   protected setup(): void {
     const ctrl = this.control;
-    const prefixValue =
-      typeof ctrl.keyPrefix === 'string' ? ctrl.keyPrefix : '';
-    const prefix =
-      prefixValue && prefixValue !== ''
-        ? `${prefixValue}_${this.name.toUpperCase()}`
-        : `${this.name.toUpperCase()}`;
+    const prefix = computed(() => {
+      const prefixValue = ctrl.keyPrefix();
 
-    this.label = `${prefix}_Q`;
-    this.placeholder = `${prefix}_PH`;
-    this.assistiveText = `${prefix}_AT`;
-    this.textBefore = `${prefix}_TB`;
-    this.textAfter = `${prefix}_TA`;
+      return prefixValue && prefixValue !== ''
+        ? `${prefixValue}.${this.name.toUpperCase()}`
+        : `${this.name.toUpperCase()}`;
+    });
+
+    this.label = computed(() => `${prefix()}.Q`);
+    this.placeholder = computed(() => `${prefix()}.PH`);
+    this.assistiveText = computed(() => `${prefix()}.AT`);
+    this.textBefore = computed(() => `${prefix()}.TB`);
+    this.textAfter = computed(() => `${prefix()}.TA`);
   }
 }
