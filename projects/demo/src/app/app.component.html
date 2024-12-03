@@ -1,4 +1,12 @@
-<form [esfsFormGroup]="form">
+<form class="card" [esfsFormGroup]="form">
   <esfs-field name="text"></esfs-field>
-  {{ form.value | json }}
+  <esfs-field name="checkbox"></esfs-field>
+  <esfs-field name="number"></esfs-field>
+  <esfs-field name="address"></esfs-field>
+
+  <button (click)="handleButtonClick()">Change config</button>
 </form>
+
+<div class="card">
+  <code><pre>{{ form.value | json }}</pre></code>
+</div>

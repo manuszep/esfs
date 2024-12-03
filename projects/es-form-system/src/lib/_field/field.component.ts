@@ -15,6 +15,9 @@ import { EsfsFormControl } from '../_common/form-control';
 import { EsfsFormGroup } from '../_common';
 import { EsfsTextComponent } from '../text';
 import { EsfsFormErrorPipe } from '../_common/error.pipe';
+import { EsfsCheckboxComponent } from '../checkbox';
+import { EsfsNumberComponent } from '../number';
+import { EsfsAddressComponent } from '../address/address.component';
 
 @Component({
   selector: 'esfs-field',
@@ -23,7 +26,15 @@ import { EsfsFormErrorPipe } from '../_common/error.pipe';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [CommonModule, EsfsTextComponent, EsfsFormErrorPipe],
+  imports: [
+    CommonModule,
+    EsfsAddressComponent,
+    EsfsTextComponent,
+    EsfsNumberComponent,
+    EsfsCheckboxComponent,
+    EsfsFormErrorPipe,
+    EsfsAddressComponent,
+  ],
 })
 export class EsfsFieldComponent<TValue> implements OnInit {
   @Input({ required: true }) name!: string;

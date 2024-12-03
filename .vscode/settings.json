@@ -1,0 +1,11 @@
+{
+  "files.autoSave": "onFocusChange",
+  "editor.autoClosingBrackets": "never",
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.quickSuggestions": true,
+  "editor.hover.enabled": false,
+  "editor.parameterHints.enabled": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "html.suggest.html5": false,
+  "editor.indentSize": 2
+}

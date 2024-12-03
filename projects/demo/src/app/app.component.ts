@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   EsfsFieldComponent,
+  EsfsFormControlAddress,
+  EsfsFormControlCheckbox,
+  EsfsFormControlNumber,
   EsfsFormControlText,
   EsfsFormGroup,
   EsfsFormGroupDirective,
@@ -22,24 +25,49 @@ import {
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  control: EsfsFormControlText<string>;
+  textControl: EsfsFormControlText<string>;
+  numberControl: EsfsFormControlNumber;
+  checkboxControl: EsfsFormControlCheckbox;
+  addressControl: EsfsFormControlAddress;
   form: EsfsFormGroup;
 
   constructor() {
-    this.control = new EsfsFormControlText<string>('', {
+    this.textControl = new EsfsFormControlText<string>('', {
       textBefore: true,
+      textAfter: true,
       updateOn: 'change',
       required: true,
       minLength: 3,
+      iconBefore: 'search',
+      iconAfter: 'close',
     });
+
+    this.checkboxControl = new EsfsFormControlCheckbox(false, {
+      disabled: true,
+    });
+
+    this.numberControl = new EsfsFormControlNumber(null, { min: 4 });
+
+    this.addressControl = new EsfsFormControlAddress({}, {});
 
     this.form = new EsfsFormGroup(
       {
-        text: this.control,
+        text: this.textControl,
+        number: this.numberControl,
+        checkbox: this.checkboxControl,
+        address: this.addressControl,
       },
       {},
       'DEMO',
       'demo'
     );
+  }
+
+  handleButtonClick() {
+    this.textControl.iconAfter.set('attach_email');
+    this.textControl.textAfter.set(false);
+    this.textControl.required.set(false);
+    this.textControl.minLength.set(0);
+    this.textControl.updateValueAndValidity();
   }
 }

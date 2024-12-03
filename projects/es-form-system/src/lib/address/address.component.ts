@@ -8,25 +8,30 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlText } from './text.model';
-import { EsfsLayoutComponent } from '../_layout/layout.component';
+import {
+  EsfsFormControlAddress,
+  IEsfsFormControlAddressValue,
+} from './address.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { EsfsFieldComponent } from '../_field';
+import { EsfsFormGroupDirective } from '../_common';
 
 @Component({
-  selector: 'esfs-text',
-  templateUrl: './text.component.html',
-  styleUrl: './text.component.scss',
+  selector: 'esfs-address',
+  templateUrl: './address.component.html',
+  styleUrl: './address.component.scss',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    EsfsLayoutComponent,
+    EsfsFieldComponent,
+    EsfsFormGroupDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class EsfsTextComponent<TValue = string> extends EsfsFieldComponentBase<
-  TValue,
-  EsfsFormControlText<TValue>
+export class EsfsAddressComponent extends EsfsFieldComponentBase<
+  IEsfsFormControlAddressValue,
+  EsfsFormControlAddress
 > {}

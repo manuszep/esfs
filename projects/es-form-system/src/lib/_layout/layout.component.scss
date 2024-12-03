@@ -6,7 +6,7 @@
 
 @property --esfs-layout-transition-duration {
   syntax: "<time>";
-  initial-value: .3s;
+  initial-value: .2s;
   inherits: true;
 }
 
@@ -54,6 +54,14 @@
   display: flex;
   line-height: var(--esfs-layout-line-height);
 
+  &--disabled {
+    --esfs-layout-color-focus: var(--esfs-layout-color-neutral);
+
+    input, select, label {
+      cursor: not-allowed !important;
+    }
+  }
+
   &:has(input:focus), &:has(select:focus) {
     --esfs-layout-color-neutral: var(--esfs-layout-color-focus);
     --esfs-layout-color-text: var(--esfs-layout-color-focus);
@@ -64,49 +72,51 @@
     --esfs-layout-color-text: var(--esfs-layout-color-error);
   }
 
+  label {
+    display: block;
+    line-height: 1;
+    transition: font-size, top, left, color, opacity;
+    transition-duration: var(--esfs-layout-transition-duration);
+    z-index: 1;
+    color: var(--esfs-layout-color-text);
+    order: 1;
+    margin-left: var(--esfs-layout-spacing);
+    cursor: pointer;
+  }
+
   &__control {
     position: relative;
     order: 30;
     flex-grow: 1;
+    display: flex;
+    margin-left: var(--esfs-layout-spacing);
+  }
 
-    label {
-      display: block;
-      position: absolute;
-      left: var(--esfs-layout-spacing);
-      top: calc(var(--esfs-layout-spacing) * 1.5 + 1px);
-      line-height: 1;
-      transition: font-size, top, left, color, opacity;
-      transition-duration: var(--esfs-layout-transition-duration);
-      pointer-events: none;
-      opacity: 0.5;
-      z-index: 1;
-      color: var(--esfs-layout-color-text);
+  &__text, &__icon {
+    @include esfs-layout-block;
+    line-height: inherit;
+    color: var(--esfs-layout-color-text);
+
+    &--before {
+      order: 10;
     }
 
-    &:not(
-      :has(input:placeholder-shown)
-    ):not(
-      :has(select.cadrart-field-select__has-no-value)
-    ):not(
-      :has(input.has-no-value)
-    ),
-    :has(input:-webkit-autofill),
-    &:has(input:focus),
-    &:has(select:focus) {
-      label {
-        top: 0;
-        font-size: 80%;
-      }
+    &--after {
+      order: 50;
+    }
+  }
+
+  &__icon {
+    &--before {
+      order: 20;
     }
 
-    /*&:has(input:focus),
-    &:has(select:focus) {
-      label {
-        color: var(--esfs-layout-color-active);
-        opacity: 1;
-      }
-    }*/
+    &--after {
+      order: 40;
+    }
+  }
 
+  &--can-type-in {
     input, select {
       @include esfs-layout-block;
       width: 100%;
@@ -132,19 +142,35 @@
         -moz-appearance: none;
       }
     }
-  }
 
-  &__text {
-    @include esfs-layout-block;
-    line-height: inherit;
-    color: var(--esfs-layout-color-text);
-
-    &--before {
-      order: 20;
+    &:not(
+      :has(input:placeholder-shown)
+    ):not(
+      :has(select.cadrart-field-select__has-no-value)
+    ):not(
+      :has(input.has-no-value)
+    ),
+    :has(input:-webkit-autofill),
+    &:has(input:focus),
+    &:has(select:focus) {
+      label {
+        top: 0;
+        font-size: 80%;
+      }
     }
 
-    &--after {
-      order: 40;
+    label {
+      position: absolute;
+      left: var(--esfs-layout-spacing);
+      top: calc(var(--esfs-layout-spacing) * 1.5 + 1px);
+      pointer-events: none;
+      opacity: 0.5;
+      margin-left: 0;
+    }
+
+    .esfs-layout__control {
+      display: block;
+      margin-left: 0;
     }
   }
 }

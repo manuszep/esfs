@@ -1,4 +1,12 @@
-<ng-container [ngSwitch]="control.fieldType">
+<div class="esfs-field" [ngSwitch]="control.fieldType">
+  <esfs-address
+    #fld
+    *ngSwitchCase="'address'"
+    [name]="name"
+    [form]="form"
+    [control]="$any(control)"
+  ></esfs-address>
+
   <esfs-text
     #fld
     *ngSwitchCase="'text'"
@@ -6,7 +14,22 @@
     [form]="form"
     [control]="$any(control)"
   ></esfs-text>
-  <div *ngIf="control.errors && (control.dirty || control.touched)" class="esfs-field-error">
+
+  <esfs-number
+    #fld
+    *ngSwitchCase="'number'"
+    [name]="name"
+    [form]="form"
+    [control]="$any(control)"
+  ></esfs-number>
+
+  <esfs-checkbox
+    *ngSwitchCase="'checkbox'"
+    [name]="name"
+    [form]="form"
+    [control]="$any(control)"></esfs-checkbox>
+
+  <div *ngIf="control.errors && (control.dirty || control.touched)" class="esfs-field__error">
     {{ control.errors | esfsFormError : control.keyPrefix() + '.' + name }}
   </div>
-</ng-container>
+</div>

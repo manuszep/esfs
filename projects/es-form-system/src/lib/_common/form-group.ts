@@ -3,6 +3,7 @@ import { EsfsFormControl } from './form-control';
 import { signal } from '@angular/core';
 
 export class EsfsFormGroup<
+  TValue extends Record<string, any> = any,
   TForm extends Record<string, EsfsFormControl | EsfsFormGroup> = Record<
     string,
     EsfsFormControl

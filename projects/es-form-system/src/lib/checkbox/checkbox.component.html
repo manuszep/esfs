@@ -1,0 +1,12 @@
+<esfs-layout
+  [id]="control.guid"
+  [disabled]="control.disabled"
+  [label]="control.label() ? label() : ''"
+  [hasError]="!!error()"
+  [canTypeIn]="false">
+  <input
+    [id]="control.guid"
+    [disabled]="control.disabled"
+    type="checkbox"
+    [formControl]="control" />
+</esfs-layout>

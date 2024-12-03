@@ -35,7 +35,7 @@ export abstract class EsfsFormControl<
     value;
   protected fieldToFormMapper: (value: any) => TValue = (value: any) => value;
 
-  constructor(value: TValue, config: IEsfsFormControlConfig<TValue>) {
+  constructor(value: TValue | null, config: IEsfsFormControlConfig<TValue>) {
     super(
       {
         value,
@@ -112,7 +112,7 @@ export abstract class EsfsFormControl<
     return validators;
   }
 
-  protected setupValidators(): void {
+  public setupValidators(): void {
     this.setValidators(this.buildValidatorsArray());
   }
 }

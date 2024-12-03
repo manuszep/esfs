@@ -21,7 +21,7 @@ export type IEsfsFormControlTextConfig<TValue = string> = Partial<
 >;
 
 export class EsfsFormControlText<
-  TValue = string
+  TValue = string | null
 > extends EsfsFormControl<TValue> {
   public fieldType: IEsfsFieldType = 'text';
 
@@ -36,8 +36,8 @@ export class EsfsFormControlText<
   iconBefore: WritableSignal<string | false> = signal(false);
   iconAfter: WritableSignal<string | false> = signal(false);
 
-  constructor(value: TValue, config: IEsfsFormControlTextConfig<TValue>) {
-    super(value, config);
+  constructor(value: TValue, config?: IEsfsFormControlTextConfig<TValue>) {
+    super(value, config ?? {});
 
     this.setupValidators();
     this.updateConfig(config);

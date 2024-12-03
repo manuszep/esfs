@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   computed,
   Input,
@@ -15,9 +16,9 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'esfs-field-base',
   template: '',
 })
-export abstract class EsfsFieldComponent<
+export abstract class EsfsFieldComponentBase<
   TValue,
-  TControl extends EsfsFormControl<TValue>
+  TControl extends EsfsFormControl<TValue> | EsfsFormGroup<Record<string, any>>
 > implements OnInit, OnDestroy
 {
   @Input({ required: true }) control!: TControl;
@@ -35,6 +36,8 @@ export abstract class EsfsFieldComponent<
 
   protected _unsubscribe = new Subject<void>();
 
+  constructor(private readonly _cdRef: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     if (!this.control || !this.name || !this.form) {
       throw new Error('control, name and form are required inputs');
@@ -47,6 +50,7 @@ export abstract class EsfsFieldComponent<
         this.error.set(
           this.control.errors ? Object.values(this.control.errors)[0] : null
         );
+        this._cdRef.markForCheck();
       });
 
     this.setup();
