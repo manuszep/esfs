@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project demo",
-    "build": "ng build",
+    "build": "ng build --project es-form-system",
     "watch": "ng build --watch --configuration development --project es-form-system",
     "test": "ng test"
   },
