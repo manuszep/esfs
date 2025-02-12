@@ -23,7 +23,7 @@ export interface IEsfsDropdownOption<TValue = null> {
 export class EsfsFormControlDropdown<
   TValue = string | null
 > extends EsfsFormControl<TValue> {
-  public fieldType: IEsfsFieldType = 'dropdown';
+  public override fieldType: IEsfsFieldType = 'dropdown';
 
   clearable: WritableSignal<boolean> = signal(false);
   textBefore: WritableSignal<boolean> = signal(false);

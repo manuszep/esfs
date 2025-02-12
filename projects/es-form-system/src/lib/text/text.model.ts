@@ -23,7 +23,7 @@ export type IEsfsFormControlTextConfig<TValue = string> = Partial<
 export class EsfsFormControlText<
   TValue = string | null
 > extends EsfsFormControl<TValue> {
-  public fieldType: IEsfsFieldType = 'text';
+  public override fieldType: IEsfsFieldType = 'text';
 
   pattern: WritableSignal<string> = signal('');
   minLength: WritableSignal<number | null> = signal(null);

@@ -14,9 +14,7 @@ export type IEsfsFormControlConfig<TValue> = Partial<
   IEsfsSignalConfigToSimpleConfig<EsfsFormControl<TValue>>
 >;
 
-export abstract class EsfsFormControl<
-  TValue = any
-> extends FormControl<TValue | null> {
+export class EsfsFormControl<TValue = any> extends FormControl<TValue | null> {
   public guid: string = crypto.randomUUID();
 
   public keyPrefix: WritableSignal<string> = signal('');
@@ -27,7 +25,7 @@ export abstract class EsfsFormControl<
   public placeholder: WritableSignal<string | boolean> = signal(true);
   public help: WritableSignal<string | boolean> = signal(false);
 
-  public abstract fieldType: IEsfsFieldType;
+  public fieldType: IEsfsFieldType = 'none';
 
   protected originalValidators: ValidatorFn[] = [];
   protected originalAsyncValidators: AsyncValidatorFn[] = [];
@@ -35,7 +33,10 @@ export abstract class EsfsFormControl<
     value;
   protected fieldToFormMapper: (value: any) => TValue = (value: any) => value;
 
-  constructor(value: TValue | null, config: IEsfsFormControlConfig<TValue>) {
+  constructor(
+    value: TValue | null,
+    config: IEsfsFormControlConfig<TValue> = {}
+  ) {
     super(
       {
         value,

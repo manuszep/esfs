@@ -4,7 +4,7 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
@@ -34,5 +34,13 @@ export class EsfsNumberComponent extends EsfsFieldComponentBase<
     if (isNaN(Number((e as InputEvent).data))) {
       e.preventDefault();
     }
+  }
+
+  handleChange(event: ValueChangeEvent<number | null>): void {
+    this.esfsChange.emit(event.value);
+  }
+
+  handleBlur(): void {
+    this.esfsBlur.emit();
   }
 }

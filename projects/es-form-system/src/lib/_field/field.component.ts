@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Host,
   Input,
   OnInit,
   Optional,
+  Output,
   SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
@@ -50,6 +52,10 @@ export class EsfsFieldComponent<TValue> implements OnInit {
   public control!: EsfsFormControl<TValue>;
   public form!: EsfsFormGroup;
 
+  @Output() public esfsBlur: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public esfsChange: EventEmitter<TValue | null> =
+    new EventEmitter<TValue | null>();
+
   constructor(
     @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer
   ) {}
@@ -70,5 +76,13 @@ export class EsfsFieldComponent<TValue> implements OnInit {
     } else {
       console.warn("Can't find parent esfsFormGroup directive");
     }
+  }
+
+  handleBlur(): void {
+    this.esfsBlur.emit();
+  }
+
+  handleChange(value: TValue | null): void {
+    this.esfsChange.emit(value);
   }
 }

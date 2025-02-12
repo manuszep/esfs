@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { combineLatestWith, takeUntil } from 'rxjs';
 
 import { EsfsLayoutComponent } from '../_layout/layout.component';
@@ -38,7 +38,10 @@ export class EsfsDropdownComponent<
   public searchForm: EsfsFormGroup;
   public filteredOptions = signal<IEsfsDropdownOption<TValue>[]>([]);
 
-  constructor(protected override readonly _cdRef: ChangeDetectorRef) {
+  constructor(
+    protected override readonly _cdRef: ChangeDetectorRef,
+    private readonly translateService: TranslateService
+  ) {
     super(_cdRef);
 
     this.searchControl = new EsfsFormControlText<string>('', {});
@@ -63,7 +66,9 @@ export class EsfsDropdownComponent<
           const matchingOption = options.find(
             (option) => option.value === this.control.value
           )?.label;
-          this.searchForm.get('search')?.setValue(matchingOption ?? '');
+          const value = this.translateService.instant(matchingOption ?? '');
+
+          this.searchForm.get('search')?.setValue(value, { emitEvent: false });
         }
       });
 
@@ -80,9 +85,15 @@ export class EsfsDropdownComponent<
         let filteredOptions = options;
         if (!!search) {
           // Filter the options based on the search value
-          filteredOptions = options.filter((option) =>
-            option.label.toLowerCase().includes(search.toLowerCase())
-          );
+          filteredOptions = options.filter((option) => {
+            const translatedOption = this.translateService.instant(
+              option.label
+            );
+
+            return translatedOption
+              .toLowerCase()
+              .includes(search.toLowerCase());
+          });
         }
 
         // Update the dropdown options with the filtered options
@@ -91,11 +102,19 @@ export class EsfsDropdownComponent<
   }
 
   public handleSelectOption(option: IEsfsDropdownOption<TValue>): void {
-    this.searchForm.get('search')?.setValue(option.label, { emitEvent: false });
+    const value = this.translateService.instant(option.label);
+
+    this.searchForm.get('search')?.setValue(value, { emitEvent: false });
     this.control.setValue(option.value);
+    this.esfsBlur.emit();
+    this.esfsChange.emit(option.value);
   }
 
   public handleSearchInput(): void {
     this.control.setValue(null);
+  }
+
+  handleBlur(): void {
+    this.esfsBlur.emit();
   }
 }

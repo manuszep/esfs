@@ -7,7 +7,7 @@ import {
   signal,
   ViewEncapsulation,
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
@@ -48,5 +48,13 @@ export class EsfsDateComponent extends EsfsFieldComponentBase<
       const max = this.control.max();
       return max ? max.toISOString().split('T')[0] : '';
     });
+  }
+
+  handleChange(event: ValueChangeEvent<string>): void {
+    this.esfsChange.emit(event.value);
+  }
+
+  handleBlur(): void {
+    this.esfsBlur.emit();
   }
 }

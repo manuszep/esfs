@@ -14,7 +14,7 @@ export type IEsfsFormControlPhoneConfig = Partial<
 >;
 
 export class EsfsFormControlPhone extends EsfsFormControl<string | null> {
-  public fieldType: IEsfsFieldType = 'phone';
+  public override fieldType: IEsfsFieldType = 'phone';
 
   public clearable: WritableSignal<boolean> = signal(false);
   public textBefore: WritableSignal<boolean> = signal(false);

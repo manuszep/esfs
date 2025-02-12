@@ -2,27 +2,50 @@ import { AbstractControlOptions, FormGroup } from '@angular/forms';
 import { EsfsFormControl } from './form-control';
 import { signal } from '@angular/core';
 
+export type IEsfsFormGroupConfig = Record<
+  string,
+  EsfsFormControl | EsfsFormGroup
+>;
+
+export type IEsfsFormGroupOptions = AbstractControlOptions;
+
+type PartialDeep<T> = T extends (...args: any[]) => any
+  ? T
+  : T extends Date
+  ? T
+  : T extends Array<infer InferredArrayMember>
+  ? Array<PartialDeep<InferredArrayMember>>
+  : T extends object
+  ? DeepPartialObject<T>
+  : T | undefined;
+
+type DeepPartialObject<T> = {
+  [Key in keyof T]?: PartialDeep<T[Key]>;
+};
+
 export class EsfsFormGroup<
   TValue extends Record<string, any> = any,
-  TForm extends Record<string, EsfsFormControl | EsfsFormGroup> = Record<
-    string,
-    EsfsFormControl
-  >
+  TForm extends IEsfsFormGroupConfig = IEsfsFormGroupConfig
 > extends FormGroup {
   public keyPrefix = signal('');
   public persistToSessionStorage: string | false;
 
   constructor(
     formConfig: TForm,
-    options: AbstractControlOptions = { updateOn: 'blur' },
+    options: IEsfsFormGroupOptions = { updateOn: 'blur' },
     keyPrefix = '',
-    persistToSessionStorage: string | false = false
+    persistToSessionStorage: string | false = false,
+    data?: PartialDeep<TValue>
   ) {
     super(formConfig, options);
 
     this.updateControlsKeyPrefix(keyPrefix);
 
     this.persistToSessionStorage = persistToSessionStorage;
+
+    if (data) {
+      this.patchValue(data);
+    }
   }
 
   private updateControlsKeyPrefix(keyPrefix: string): void {

@@ -12,7 +12,8 @@
           [id]="control.guid"
           type="radio"
           [formControl]="control"
-          [value]="option.value">
+          [value]="option.value"
+          (change)="handleChange($any($event))">
         {{ option.label }}
       </label>
     }

@@ -12,7 +12,7 @@
   [value]="control.value"
   >
   <form [esfsFormGroup]="subForm">
-    <esfs-dropdown name="code" [control]="codeField" [form]="subForm"></esfs-dropdown>
-    <esfs-number name="number" [control]="numberField" [form]="subForm"></esfs-number>
+    <esfs-dropdown name="code" [control]="codeField" [form]="subForm" (esfsChange)="handleChange($event)"></esfs-dropdown>
+    <esfs-number name="number" [control]="numberField" [form]="subForm" (esfsBlur)="handleBlur()"></esfs-number>
   </form>
 </esfs-layout>

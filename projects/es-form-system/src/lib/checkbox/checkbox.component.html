@@ -10,5 +10,6 @@
   <input
     [id]="control.guid"
     type="checkbox"
-    [formControl]="control" />
+    [formControl]="control"
+    (change)="handleChange($any($event))" />
 </esfs-layout>

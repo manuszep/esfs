@@ -13,7 +13,7 @@ export type IEsfsFormControlCheckboxConfig = Partial<
 >;
 
 export class EsfsFormControlCheckbox extends EsfsFormControl<boolean> {
-  public fieldType: IEsfsFieldType = 'checkbox';
+  public override fieldType: IEsfsFieldType = 'checkbox';
 
   style: WritableSignal<'classic' | 'toggle'> = signal<'classic' | 'toggle'>(
     'toggle'

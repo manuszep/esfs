@@ -12,7 +12,7 @@ export type IEsfsFormControlDateConfig = Partial<
 >;
 
 export class EsfsFormControlDate extends EsfsFormControl<string> {
-  public fieldType: IEsfsFieldType = 'date';
+  public override fieldType: IEsfsFieldType = 'date';
 
   min: WritableSignal<Date | null> = signal<Date | null>(null);
   max: WritableSignal<Date | null> = signal<Date | null>(null);

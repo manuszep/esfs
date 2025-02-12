@@ -102,6 +102,12 @@
 
 @property --esfs-text-opacity-medium {
   syntax: "<percentage>";
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --esfs-text-opacity-high {
+  syntax: "<percentage>";
   initial-value: 75%;
   inherits: true;
 }

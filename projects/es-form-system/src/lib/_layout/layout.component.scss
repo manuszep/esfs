@@ -11,7 +11,8 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+input:-webkit-autofill:active,
+input:-webkit-autofill::first-line {
   -webkit-background-clip: text;
 }
 
@@ -77,6 +78,12 @@ input:-webkit-autofill:active {
         transition: opacity var(--esfs-transition-duration);
         opacity: 0;
       }
+
+      &:focus {
+        &::placeholder {
+          opacity: var(--esfs-text-opacity-medium);
+        }
+      }
     }
 
     .esfs-layout__control__label {
@@ -84,7 +91,7 @@ input:-webkit-autofill:active {
       left: var(--esfs-spacing-horizontal);
       top: var(--esfs-spacing-vertical);
       pointer-events: none;
-      opacity: var(--esfs-text-opacity-medium);
+      opacity: var(--esfs-text-opacity-high);
       margin-left: 0;
     }
 
@@ -119,6 +126,10 @@ input:-webkit-autofill:active {
 
   &--error {
     --esfs-color-text: var(--esfs-color-error);
+  }
+
+  &--no-label input::placeholder {
+    opacity: 0.5 !important;
   }
 }
 

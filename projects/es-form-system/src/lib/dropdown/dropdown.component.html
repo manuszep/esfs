@@ -20,7 +20,8 @@
       [id]="control.guid"
       type="text"
       [formControl]="searchControl"
-      (input)="handleSearchInput()">
+      (input)="handleSearchInput()"
+      (blur)="handleBlur()">
   </div>
   <ul class="esfs-field-dropdown__control__options">
     @for (option of filteredOptions(); track option.value) {

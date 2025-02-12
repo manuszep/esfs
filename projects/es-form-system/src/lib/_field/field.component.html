@@ -6,7 +6,7 @@
         [name]="name"
         [form]="form"
         [control]="$any(control)"
-      ></esfs-address>
+        (esfsChange)="handleChange($any($event))"></esfs-address>
     }
     @case ('text') {
       <esfs-text
@@ -14,7 +14,8 @@
         [name]="name"
         [form]="form"
         [control]="$any(control)"
-      ></esfs-text>
+        (esfsBlur)="handleBlur()"
+        (esfsChange)="handleChange($any($event))"></esfs-text>
     }
 
     @case ('number') {
@@ -23,7 +24,8 @@
         [name]="name"
         [form]="form"
         [control]="$any(control)"
-      ></esfs-number>
+        (esfsBlur)="handleBlur()"
+        (esfsChange)="handleChange($any($event))"></esfs-number>
     }
 
     @case ('checkbox') {
@@ -31,7 +33,8 @@
         #fld
         [name]="name"
         [form]="form"
-        [control]="$any(control)"></esfs-checkbox>
+        [control]="$any(control)"
+        (esfsChange)="handleChange($any($event))"></esfs-checkbox>
     }
 
     @case ('dropdown') {
@@ -39,7 +42,9 @@
         #fld
         [name]="name"
         [form]="form"
-        [control]="$any(control)"></esfs-dropdown>
+        [control]="$any(control)"
+        (esfsBlur)="handleBlur()"
+        (esfsChange)="handleChange($any($event))"></esfs-dropdown>
     }
 
     @case ('date') {
@@ -47,7 +52,9 @@
         #fld
         [name]="name"
         [form]="form"
-        [control]="$any(control)"></esfs-date>
+        [control]="$any(control)"
+        (esfsBlur)="handleBlur()"
+        (esfsChange)="handleChange($any($event))"></esfs-date>
     }
 
     @case ('phone') {
@@ -55,7 +62,9 @@
         #fld
         [name]="name"
         [form]="form"
-        [control]="$any(control)"></esfs-phone>
+        [control]="$any(control)"
+        (esfsBlur)="handleBlur()"
+        (esfsChange)="handleChange($any($event))"></esfs-phone>
     }
 
     @case ('radio') {
@@ -63,7 +72,8 @@
         #fld
         [name]="name"
         [form]="form"
-        [control]="$any(control)"></esfs-radio>
+        [control]="$any(control)"
+        (esfsChange)="handleChange($any($event))"></esfs-radio>
     }
   }
 

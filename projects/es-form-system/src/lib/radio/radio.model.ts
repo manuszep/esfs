@@ -21,7 +21,7 @@ export interface IEsfsRadioOption<TValue = null> {
 export class EsfsFormControlRadio<
   TValue = string | null
 > extends EsfsFormControl<TValue> {
-  public fieldType: IEsfsFieldType = 'radio';
+  public override fieldType: IEsfsFieldType = 'radio';
 
   buttonStyle: WritableSignal<boolean> = signal(false);
   options!: Observable<IEsfsRadioOption<TValue>[]>;

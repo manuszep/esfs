@@ -13,8 +13,6 @@ import {
   IEsfsFormControlAddressValue,
 } from './address.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { EsfsFieldComponent } from '../_field';
-import { EsfsFormGroupDirective } from '../_common';
 import { EsfsTextComponent } from '../text';
 import { EsfsNumberComponent } from '../number';
 
@@ -36,4 +34,8 @@ import { EsfsNumberComponent } from '../number';
 export class EsfsAddressComponent extends EsfsFieldComponentBase<
   IEsfsFormControlAddressValue,
   EsfsFormControlAddress
-> {}
+> {
+  handleChange(value: IEsfsFormControlAddressValue): void {
+    this.esfsChange.emit(value);
+  }
+}

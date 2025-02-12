@@ -6,7 +6,7 @@ import {
   inject,
   ViewEncapsulation,
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -81,6 +81,7 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
         this.control.markAsTouched();
         this.control.markAsDirty();
         this.control.updateValueAndValidity({ emitEvent: false });
+        this.handleChange(this.control.value);
       });
 
     this.numberField.valueChanges
@@ -90,7 +91,7 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
         this.control.markAsTouched();
         this.control.markAsDirty();
         this.control.updateValueAndValidity({ emitEvent: false });
-        console.log(this.control.value);
+        this.handleChange(this.control.value);
       });
   }
 
@@ -106,5 +107,13 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
     const code = this.codeField.value ? `${this.codeField.value}/` : '';
 
     return `${code}${this.numberField.value}`;
+  }
+
+  handleChange(value: string | null): void {
+    this.esfsChange.emit(value);
+  }
+
+  handleBlur(): void {
+    this.esfsBlur.emit();
   }
 }

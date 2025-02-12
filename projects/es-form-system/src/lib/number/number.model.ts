@@ -13,7 +13,7 @@ export type IEsfsFormControlNumberConfig = Partial<
 >;
 
 export class EsfsFormControlNumber extends EsfsFormControl<number | null> {
-  public fieldType: IEsfsFieldType = 'number';
+  public override fieldType: IEsfsFieldType = 'number';
 
   min: WritableSignal<number | null> = signal<number | null>(null);
   max: WritableSignal<number | null> = signal<number | null>(null);

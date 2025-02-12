@@ -19,6 +19,7 @@ export type IEsfsSignalConfigToSimpleConfig<TType, TValue = any> = {
 };
 
 export type IEsfsFieldType =
+  | 'none'
   | 'address'
   | 'checkbox'
   | 'date'

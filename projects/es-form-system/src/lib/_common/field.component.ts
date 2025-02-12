@@ -2,9 +2,11 @@ import {
   ChangeDetectorRef,
   Component,
   computed,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   signal,
 } from '@angular/core';
 import { EsfsFormControl } from './form-control';
@@ -24,6 +26,10 @@ export abstract class EsfsFieldComponentBase<
   @Input({ required: true }) control!: TControl;
   @Input({ required: true }) name!: string;
   @Input({ required: true }) form!: FormGroup;
+
+  @Output() public esfsBlur: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public esfsChange: EventEmitter<TValue | null> =
+    new EventEmitter<TValue | null>();
 
   public isValid = signal(true);
   public error = signal<string | null>('');

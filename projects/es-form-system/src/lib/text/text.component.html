@@ -13,6 +13,8 @@
     [id]="control.guid"
     [type]="control.type()"
     [formControl]="control"
-    [placeholder]="placeholder() | translate">
+    [placeholder]="placeholder() | translate"
+    (change)="handleChange($any($event))"
+    (blur)="handleBlur()">
 </esfs-layout>
 

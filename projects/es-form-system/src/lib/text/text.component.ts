@@ -4,7 +4,7 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
@@ -29,4 +29,12 @@ import { TranslateModule } from '@ngx-translate/core';
 export class EsfsTextComponent<TValue = string> extends EsfsFieldComponentBase<
   TValue,
   EsfsFormControlText<TValue>
-> {}
+> {
+  handleChange(event: ValueChangeEvent<TValue>): void {
+    this.esfsChange.emit(event.value);
+  }
+
+  handleBlur(): void {
+    this.esfsBlur.emit();
+  }
+}
