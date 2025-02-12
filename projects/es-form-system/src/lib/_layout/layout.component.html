@@ -4,15 +4,31 @@
   [class.esfs-layout--no-label]="!label"
   [class.esfs-layout--error]="hasError"
   [class.esfs-layout--can-type-in]="canTypeIn"
+  [class.esfs-layout--has-value]="hasValue"
 >
-  <span class="esfs-layout__icon esfs-layout__icon--before material-symbols-outlined" *ngIf="iconBefore">{{iconBefore}}</span>
-  <span class="esfs-layout__icon esfs-layout__icon--after material-symbols-outlined" *ngIf="iconAfter">{{iconAfter}}</span>
+  @if (iconBefore) {
+    <span class="esfs-layout__icon esfs-layout__icon--before material-symbols-outlined">{{iconBefore}}</span>
+  }
+  @if (iconAfter) {
+    <span class="esfs-layout__icon esfs-layout__icon--after material-symbols-outlined">{{iconAfter}}</span>
+  }
 
-  <span class="esfs-layout__text esfs-layout__text--before" *ngIf="textBefore">{{ textBefore | translate }}</span>
-  <span class="esfs-layout__text esfs-layout__text--after" *ngIf="textAfter">{{ textAfter | translate }}</span>
+  @if (textBefore) {
+    <span class="esfs-layout__text esfs-layout__text--before">{{ textBefore | translate }}</span>
+  }
+  @if (textAfter) {
+    <span class="esfs-layout__text esfs-layout__text--after">{{ textAfter | translate }}</span>
+  }
 
   <div class="esfs-layout__control">
-    <label *ngIf="label" [for]="id">{{ label | translate }}</label>
+    @if (label) {
+      <label
+      class="esfs-layout__control__label"
+        [class.esfs-layout__label--multi-fields]="multiFields"
+        [for]="id">
+        {{ label | translate }}
+      </label>
+    }
 
     <ng-content></ng-content>
   </div>

@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
+import { esfsDateConvertHtmlToJs, esfsDateIsValid } from './tools';
 
 interface IEsfsValidationErrorData extends ValidationErrors {
   error: string;
@@ -86,6 +87,60 @@ const requiredTrue =
     return valid ? { error, params: { value: control.value } } : null;
   };
 
+const date =
+  (message?: string) =>
+  (control: AbstractControl): IEsfsValidationError => {
+    const valid = esfsDateIsValid(control.value);
+    const error = message ?? 'validDate';
+
+    return !valid ? { error, params: { value: control.value } } : null;
+  };
+
+const minDate =
+  (min: Date, message?: string) =>
+  (control: AbstractControl): IEsfsValidationError => {
+    const date = esfsDateConvertHtmlToJs(control.value);
+
+    if (!date) {
+      return null;
+    }
+
+    const valid = date.getTime() >= min.getTime();
+    const error = message ?? 'minDate';
+
+    return !valid ? { error, params: { value: control.value } } : null;
+  };
+
+const maxDate =
+  (max: Date, message?: string) =>
+  (control: AbstractControl): IEsfsValidationError => {
+    const date = esfsDateConvertHtmlToJs(control.value);
+
+    if (!date) {
+      return null;
+    }
+
+    const valid = date.getTime() <= max.getTime();
+    const error = message ?? 'maxDate';
+
+    return !valid ? { error, params: { value: control.value } } : null;
+  };
+
+const futureDate =
+  (message?: string) =>
+  (control: AbstractControl): IEsfsValidationError => {
+    const date = esfsDateConvertHtmlToJs(control.value);
+
+    if (!date) {
+      return null;
+    }
+
+    const valid = date.getTime() > new Date().getTime();
+    const error = message ?? 'futureDate';
+
+    return !valid ? { error, params: { value: control.value } } : null;
+  };
+
 export const esfsValidators = {
   email,
   max,
@@ -95,4 +150,8 @@ export const esfsValidators = {
   pattern,
   required,
   requiredTrue,
+  date,
+  minDate,
+  maxDate,
+  futureDate,
 };

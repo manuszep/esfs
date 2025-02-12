@@ -1,35 +1,75 @@
-<div class="esfs-field" [ngSwitch]="control.fieldType">
-  <esfs-address
-    #fld
-    *ngSwitchCase="'address'"
-    [name]="name"
-    [form]="form"
-    [control]="$any(control)"
-  ></esfs-address>
+<div class="esfs-field">
+  @switch (control.fieldType) {
+    @case ('address') {
+      <esfs-address
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"
+      ></esfs-address>
+    }
+    @case ('text') {
+      <esfs-text
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"
+      ></esfs-text>
+    }
 
-  <esfs-text
-    #fld
-    *ngSwitchCase="'text'"
-    [name]="name"
-    [form]="form"
-    [control]="$any(control)"
-  ></esfs-text>
+    @case ('number') {
+      <esfs-number
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"
+      ></esfs-number>
+    }
 
-  <esfs-number
-    #fld
-    *ngSwitchCase="'number'"
-    [name]="name"
-    [form]="form"
-    [control]="$any(control)"
-  ></esfs-number>
+    @case ('checkbox') {
+      <esfs-checkbox
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"></esfs-checkbox>
+    }
 
-  <esfs-checkbox
-    *ngSwitchCase="'checkbox'"
-    [name]="name"
-    [form]="form"
-    [control]="$any(control)"></esfs-checkbox>
+    @case ('dropdown') {
+      <esfs-dropdown
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"></esfs-dropdown>
+    }
 
-  <div *ngIf="control.errors && (control.dirty || control.touched)" class="esfs-field__error">
-    {{ control.errors | esfsFormError : control.keyPrefix() + '.' + name }}
-  </div>
+    @case ('date') {
+      <esfs-date
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"></esfs-date>
+    }
+
+    @case ('phone') {
+      <esfs-phone
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"></esfs-phone>
+    }
+
+    @case ('radio') {
+      <esfs-radio
+        #fld
+        [name]="name"
+        [form]="form"
+        [control]="$any(control)"></esfs-radio>
+    }
+  }
+
+  @if (control.errors && (control.dirty || control.touched)) {
+    <div class="esfs-field__error">
+      {{ control.errors | esfsFormError : control.keyPrefix() + '.' + name }}
+    </div>
+  }
 </div>

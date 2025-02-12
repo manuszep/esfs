@@ -18,6 +18,10 @@ import { EsfsFormErrorPipe } from '../_common/error.pipe';
 import { EsfsCheckboxComponent } from '../checkbox';
 import { EsfsNumberComponent } from '../number';
 import { EsfsAddressComponent } from '../address/address.component';
+import { EsfsDropdownComponent } from '../dropdown';
+import { EsfsDateComponent } from '../date';
+import { EsfsPhoneComponent } from '../phone';
+import { EsfsRadioComponent } from '../radio';
 
 @Component({
   selector: 'esfs-field',
@@ -32,8 +36,12 @@ import { EsfsAddressComponent } from '../address/address.component';
     EsfsTextComponent,
     EsfsNumberComponent,
     EsfsCheckboxComponent,
+    EsfsDropdownComponent,
     EsfsFormErrorPipe,
     EsfsAddressComponent,
+    EsfsDateComponent,
+    EsfsPhoneComponent,
+    EsfsRadioComponent,
   ],
 })
 export class EsfsFieldComponent<TValue> implements OnInit {

@@ -3,5 +3,12 @@
   "dest": "../../dist/es-form-system",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    {
+      "input": "src/lib",
+      "glob": "styles.scss",
+      "output": "./lib"
+    }
+  ]
 }

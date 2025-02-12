@@ -65,7 +65,8 @@
               }
             ],
             "styles": [
-              "projects/demo/src/styles.scss"
+              "projects/demo/src/styles.scss",
+              "dist/es-form-system/lib/styles.scss"
             ],
             "scripts": []
           },

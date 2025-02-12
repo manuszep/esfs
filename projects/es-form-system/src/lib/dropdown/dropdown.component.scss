@@ -1,0 +1,61 @@
+.esfs-field-dropdown {
+  &__control {
+    display: flex;
+
+    &__selection {
+      &__placeholder {
+        position: absolute;
+        top: var(--esfs-spacing-vertical);
+        opacity: var(--esfs-text-opacity-medium);
+        left: var(--esfs-spacing-horizontal);
+        pointer-events: none;
+      }
+    }
+
+    &__options {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      background: var(--esfs-color-background);
+      z-index: 10;
+      border-radius: var(--esfs-border-radius);
+      width: 100%;
+      box-shadow: var(--esfs-box-shadow);
+      top: 22px;
+      list-style: none;
+      padding: 0 var(--esfs-spacing-horizontal);
+      transition: opacity var(--esfs-transition-time), visibility var(--esfs-transition-time);
+      max-height: 300px;
+      overflow-y: auto;
+
+      &__option {
+        padding: var(--esfs-spacing-small) var(--esfs-spacing-large);
+        //border-bottom: 1px solid var(--esfs-color-dark);
+        transition: background-color var(--esfs-transition-time), color var(--esfs-transition-time);
+
+        &:hover {
+          cursor: pointer;
+          background: var(--esfs-color-focus);
+          color: var(--esfs-color-dark);
+        }
+
+        &--selected {
+          background: var(--esfs-color-focus);
+          color: var(--esfs-color-dark);
+        }
+
+        &--spacer {
+          pointer-events: none;
+          opacity: .3;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  &:has(:focus) .esfs-field-dropdown__control__options {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+  }
+}

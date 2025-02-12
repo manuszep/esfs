@@ -1,0 +1,21 @@
+<esfs-layout
+  [id]="control.guid"
+  [disabled]="control.disabled"
+  [label]="control.label() ? label() : ''"
+  [hasError]="!!error()"
+  [value]="control.value"
+  >
+  <div class="esfs-radio" [class.esfs-radio--button]="control.buttonStyle()">
+    @for (option of control.options | async; track option.label) {
+      <label class="esfs-radio__label">
+        <input
+          [id]="control.guid"
+          type="radio"
+          [formControl]="control"
+          [value]="option.value">
+        {{ option.label }}
+      </label>
+    }
+  </div>
+</esfs-layout>
+

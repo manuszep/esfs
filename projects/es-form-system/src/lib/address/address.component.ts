@@ -15,6 +15,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { EsfsFieldComponent } from '../_field';
 import { EsfsFormGroupDirective } from '../_common';
+import { EsfsTextComponent } from '../text';
+import { EsfsNumberComponent } from '../number';
 
 @Component({
   selector: 'esfs-address',
@@ -25,8 +27,8 @@ import { EsfsFormGroupDirective } from '../_common';
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    EsfsFieldComponent,
-    EsfsFormGroupDirective,
+    EsfsTextComponent,
+    EsfsNumberComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

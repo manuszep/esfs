@@ -17,6 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [CommonModule, TranslateModule],
 })
 export class EsfsLayoutComponent {
+  public hasValue = false;
+
   @Input() id?: string;
   @Input() canTypeIn = true;
   @Input() label?: string;
@@ -24,7 +26,13 @@ export class EsfsLayoutComponent {
   @Input() iconAfter?: string | false;
   @Input() textBefore?: string;
   @Input() textAfter?: string;
+  @Input() multiFields = false;
 
   @Input() disabled = false;
   @Input() hasError = false;
+
+  @Input()
+  set value(value: unknown) {
+    this.hasValue = !!value;
+  }
 }

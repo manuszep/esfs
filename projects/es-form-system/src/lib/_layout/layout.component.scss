@@ -1,101 +1,39 @@
-@property --esfs-layout-spacing {
-  syntax: "<length>";
-  initial-value: 10px;
-  inherits: true;
-}
-
-@property --esfs-layout-transition-duration {
-  syntax: "<time>";
-  initial-value: .2s;
-  inherits: true;
-}
-
-@property --esfs-layout-color-text {
-  syntax: "<color>";
-  initial-value: #999;
-  inherits: true;
-}
-
-@property --esfs-layout-color-neutral {
-  syntax: "<color>";
-  initial-value: #999;
-  inherits: true;
-}
-
-@property --esfs-layout-color-error {
-  syntax: "<color>";
-  initial-value: #e22235;
-  inherits: true;
-}
-
-@property --esfs-layout-color-focus {
-  syntax: "<color>";
-  initial-value: #ffda52;
-  inherits: true;
-}
-
-@property --esfs-layout-line-height {
-  syntax: "<length>";
-  initial-value: 1;
-  inherits: true;
-}
-
 @mixin esfs-layout-block {
   display: block;
-  border: 2px solid var(--esfs-layout-color-neutral);
+  border: 2px solid var(--esfs-color-text);
   border-width: 0 0 2px 0;
   outline: none;
   background-color: transparent;
-  transition: border-color var(--esfs-layout-transition-duration);
-  padding: calc(var(--esfs-layout-spacing)) var(--esfs-layout-spacing) 0;
+  transition: border-color var(--esfs-transition-duration);
+  padding: var(--esfs-spacing-vertical) var(--esfs-spacing-horizontal) 0;
 }
 
 .esfs-layout {
   display: flex;
-  line-height: var(--esfs-layout-line-height);
-
-  &--disabled {
-    --esfs-layout-color-focus: var(--esfs-layout-color-neutral);
-
-    input, select, label {
-      cursor: not-allowed !important;
-    }
-  }
-
-  &:has(input:focus), &:has(select:focus) {
-    --esfs-layout-color-neutral: var(--esfs-layout-color-focus);
-    --esfs-layout-color-text: var(--esfs-layout-color-focus);
-  }
-
-  &--error {
-    --esfs-layout-color-neutral: var(--esfs-layout-color-error);
-    --esfs-layout-color-text: var(--esfs-layout-color-error);
-  }
-
-  label {
-    display: block;
-    line-height: 1;
-    transition: font-size, top, left, color, opacity;
-    transition-duration: var(--esfs-layout-transition-duration);
-    z-index: 1;
-    color: var(--esfs-layout-color-text);
-    order: 1;
-    margin-left: var(--esfs-layout-spacing);
-    cursor: pointer;
-  }
+  line-height: 1;
 
   &__control {
     position: relative;
     order: 30;
     flex-grow: 1;
     display: flex;
-    margin-left: var(--esfs-layout-spacing);
+    margin-left: var(--esfs-spacing-horizontal);
+
+    &__label {
+      display: block;
+      transition: font-size, top, left, color, opacity;
+      transition-duration: var(--esfs-transition-duration);
+      z-index: 1;
+      color: var(--esfs-color-text);
+      order: 1;
+      margin-left: var(--esfs-spacing-horizontal);
+      cursor: pointer;
+    }
   }
 
   &__text, &__icon {
     @include esfs-layout-block;
-    line-height: inherit;
-    color: var(--esfs-layout-color-text);
+    color: var(--esfs-color-text);
 
     &--before {
       order: 10;
@@ -107,6 +45,8 @@
   }
 
   &__icon {
+    font-size: inherit;
+
     &--before {
       order: 20;
     }
@@ -124,18 +64,75 @@
       appearance: none;
       -moz-appearance: textfield;
       line-height: inherit;
+      color: --esfs-color-value;
 
       &::placeholder {
-        transition: opacity var(--esfs-layout-transition-duration);
+        transition: opacity var(--esfs-transition-duration);
         opacity: 0;
       }
 
       &:focus {
         &::placeholder {
-          opacity: 0.5;
+          opacity: var(--esfs-text-opacity-low);
         }
       }
     }
+
+    .esfs-layout__control__label {
+      position: absolute;
+      left: var(--esfs-spacing-horizontal);
+      top: var(--esfs-spacing-vertical);
+      pointer-events: none;
+      opacity: var(--esfs-text-opacity-medium);
+      margin-left: 0;
+    }
+
+    .esfs-layout__control {
+      display: block;
+      margin-left: 0;
+    }
+
+    &.esfs-layout--has-value,
+    &:has(input:focus),
+    &:has(select:focus),
+    &:not(
+      :has(input:placeholder-shown)
+    ):not(
+      :has(input.has-no-value)
+    ) {
+      .esfs-layout__control__label {
+        top: 0;
+        font-size: 80%;
+      }
+    }
+
+    .esfs-layout__label--multi-fields {
+      top: 0;
+      font-size: 80%;
+    }
+  }
+
+  &:has(input:focus), &:has(select:focus) {
+    --esfs-color-text: var(--esfs-color-focus);
+  }
+
+  &--error {
+    --esfs-color-text: var(--esfs-color-error);
+  }
+}
+
+/*.esfs-layout {
+  &--disabled {
+    --esfs-color-focus: var(--esfs-color-neutral);
+
+    input, select, label {
+      cursor: not-allowed !important;
+    }
+  }
+
+
+
+  &--can-type-in {
 
     select {
       select {
@@ -158,19 +155,6 @@
         font-size: 80%;
       }
     }
-
-    label {
-      position: absolute;
-      left: var(--esfs-layout-spacing);
-      top: calc(var(--esfs-layout-spacing) * 1.5 + 1px);
-      pointer-events: none;
-      opacity: 0.5;
-      margin-left: 0;
-    }
-
-    .esfs-layout__control {
-      display: block;
-      margin-left: 0;
-    }
   }
 }
+*/

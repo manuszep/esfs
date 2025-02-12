@@ -1,0 +1,40 @@
+<esfs-layout
+  class="esfs-field-dropdown"
+  [id]="control.guid"
+  [disabled]="control.disabled"
+  [iconBefore]="control.iconBefore()"
+  [iconAfter]="control.iconAfter()"
+  [label]="control.label() ? label() : ''"
+  [textBefore]="control.textBefore() ? textBefore() : ''"
+  [textAfter]="control.textAfter() ? textAfter() : ''"
+  [hasError]="!!error()"
+  [value]="control.value"
+  >
+  <div class="esfs-field-dropdown__control">
+    <div class="esfs-field-dropdown__control__selection">
+      @if (!searchForm.get('search')?.value && control.placeholder()) {
+        <span class="esfs-field-dropdown__control__selection__placeholder">{{ placeholder() | translate }}</span>
+      }
+    </div>
+    <input
+      [id]="control.guid"
+      type="text"
+      [formControl]="searchControl"
+      (input)="handleSearchInput()">
+  </div>
+  <ul class="esfs-field-dropdown__control__options">
+    @for (option of filteredOptions(); track option.value) {
+      <li
+        class="esfs-field-dropdown__control__options__option"
+        [class.esfs-field-dropdown__control__options__option--selected]="control.value === option.value"
+        [class.esfs-field-dropdown__control__options__option--spacer]="option.value === '---'"
+        (click)="handleSelectOption(option)">
+        @if (option.value === '---') {
+          <hr>
+        } @else {
+          {{ option.label | translate }}
+        }
+      </li>
+    }
+  </ul>
+</esfs-layout>

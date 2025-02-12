@@ -1,12 +1,14 @@
 <esfs-layout
+  class="esfs-field-checkbox"
+  [class.esfs-field-checkbox--toggle]="control.style() === 'toggle'"
   [id]="control.guid"
   [disabled]="control.disabled"
   [label]="control.label() ? label() : ''"
   [hasError]="!!error()"
-  [canTypeIn]="false">
+  [canTypeIn]="false"
+  [value]="control.value">
   <input
     [id]="control.guid"
-    [disabled]="control.disabled"
     type="checkbox"
     [formControl]="control" />
 </esfs-layout>

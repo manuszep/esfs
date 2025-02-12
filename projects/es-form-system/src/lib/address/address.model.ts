@@ -30,17 +30,28 @@ export type IEsfsFormControlAddressValue = {
 export class EsfsFormControlAddress extends EsfsFormGroup<IFormGroup> {
   public fieldType: IEsfsFieldType = 'address';
 
+  public street: EsfsFormControlText;
+  public number: EsfsFormControlText;
+  public city: EsfsFormControlText;
+  public zip: EsfsFormControlNumber;
+  public country: EsfsFormControlText;
+
   constructor(
     value: Partial<IEsfsFormControlAddressValue>,
     options: IEsfsFormControlAddressConfig
   ) {
+    const street = new EsfsFormControlText(value.street ?? null);
+    const number = new EsfsFormControlText(value.number ?? null);
+    const city = new EsfsFormControlText(value.city ?? null);
+    const zip = new EsfsFormControlNumber(value.zip ?? null);
+    const country = new EsfsFormControlText(value.country ?? null);
     super(
       {
-        street: new EsfsFormControlText(value.street ?? null),
-        number: new EsfsFormControlText(value.number ?? null),
-        city: new EsfsFormControlText(value.city ?? null),
-        zip: new EsfsFormControlNumber(value.zip ?? null),
-        country: new EsfsFormControlText(value.country ?? null),
+        street,
+        number,
+        city,
+        zip,
+        country,
       },
       {
         updateOn: options.updateOn,
@@ -50,6 +61,12 @@ export class EsfsFormControlAddress extends EsfsFormGroup<IFormGroup> {
       options.keyPrefix,
       false
     );
+
+    this.street = street;
+    this.number = number;
+    this.city = city;
+    this.zip = zip;
+    this.country = country;
 
     this.setupValidators();
   }

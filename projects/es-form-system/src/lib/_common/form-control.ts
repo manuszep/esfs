@@ -49,6 +49,10 @@ export abstract class EsfsFormControl<
     );
   }
 
+  protected getExcludedFieldsFromAutoMapper(): string[] {
+    return [];
+  }
+
   public updateConfig(config?: IEsfsFormControlConfig<TValue>): void {
     const configKeys = Object.keys(config ?? {}) as Array<keyof typeof config>;
 
@@ -65,18 +69,22 @@ export abstract class EsfsFormControl<
           'asyncValidators',
           'formToFieldMapper',
           'fieldToFormMapper',
+          ...this.getExcludedFieldsFromAutoMapper(),
         ].includes(value)
     )) {
       if (
-        typeof this[key] === 'undefined' ||
-        typeof (this[key] as WritableSignal<unknown>).set !== 'function'
+        (typeof this[key] === 'undefined' ||
+          typeof (this[key] as WritableSignal<unknown>)?.set !== 'function') &&
+        this[key] !== null
       ) {
         throw new Error(
           `Property ${key as string} does not exist on ${this.constructor.name}`
         );
       }
 
-      (this[key] as WritableSignal<unknown>).set(config[key]);
+      if (this[key] !== null) {
+        (this[key] as WritableSignal<unknown>).set(config[key]);
+      }
     }
 
     this.originalValidators = config.validators ?? [];

@@ -7,12 +7,13 @@
   [textBefore]="control.textBefore() ? textBefore() : ''"
   [textAfter]="control.textAfter() ? textAfter() : ''"
   [hasError]="!!error()"
+  [value]="control.value"
   >
   <input
     [id]="control.guid"
-    [disabled]="control.disabled"
     type="number"
     [formControl]="control"
-    [placeholder]="placeholder() | translate">
+    [placeholder]="placeholder() | translate"
+    (input)="handleInput($event)">
 </esfs-layout>
 

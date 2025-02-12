@@ -1,0 +1,9 @@
+.esfs-phone {
+  form {
+    display: flex;
+
+    esfs-number {
+      flex-grow: 1;
+    }
+  }
+}

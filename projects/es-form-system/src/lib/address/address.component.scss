@@ -1,0 +1,22 @@
+.esfs-field-address {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esfs-spacing);
+
+  &__field {
+    display: block;
+
+    &--street, &--city {
+      flex-basis: 50%;
+      flex-grow: 10;
+    }
+
+    &--number, &--zip {
+      flex-grow: 1;
+    }
+
+    &--country {
+      flex-basis: 100%;
+    }
+  }
+}

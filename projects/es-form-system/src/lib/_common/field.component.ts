@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { EsfsFormControl } from './form-control';
 import { EsfsFormGroup } from './form-group';
-import { FormGroup } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { ControlEvent, FormGroup } from '@angular/forms';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'esfs-field-base',
@@ -36,16 +36,21 @@ export abstract class EsfsFieldComponentBase<
 
   protected _unsubscribe = new Subject<void>();
 
-  constructor(private readonly _cdRef: ChangeDetectorRef) {}
+  constructor(protected readonly _cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (!this.control || !this.name || !this.form) {
       throw new Error('control, name and form are required inputs');
     }
 
-    this.control.statusChanges
-      .pipe(takeUntil(this._unsubscribe))
-      .subscribe(() => {
+    this.control.events
+      .pipe(
+        takeUntil(this._unsubscribe),
+        filter((event: any) => {
+          return event.touched || event.status;
+        })
+      )
+      .subscribe((event: any) => {
         this.isValid.set(this.control.status === 'VALID');
         this.error.set(
           this.control.errors ? Object.values(this.control.errors)[0] : null

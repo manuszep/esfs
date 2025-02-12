@@ -1,3 +1,7 @@
-<div class="esfs-field-address" [esfsFormGroup]="control">
-  <esfs-field name="street"></esfs-field>
+<div class="esfs-field-address">
+  <esfs-text class="esfs-field-address__field esfs-field-address__field--street" [control]="control.street" name="street" [form]="control"></esfs-text>
+  <esfs-text class="esfs-field-address__field esfs-field-address__field--number" [control]="control.number" name="number" [form]="control"></esfs-text>
+  <esfs-text class="esfs-field-address__field esfs-field-address__field--city" [control]="control.city" name="city" [form]="control"></esfs-text>
+  <esfs-number class="esfs-field-address__field esfs-field-address__field--zip" [control]="control.zip" name="zip" [form]="control"></esfs-number>
+  <esfs-text class="esfs-field-address__field esfs-field-address__field--country" [control]="control.country" name="country" [form]="control"></esfs-text>
 </div>

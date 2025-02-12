@@ -29,4 +29,10 @@ import { TranslateModule } from '@ngx-translate/core';
 export class EsfsNumberComponent extends EsfsFieldComponentBase<
   number | null,
   EsfsFormControlNumber
-> {}
+> {
+  public handleInput(e: InputEvent): void {
+    if (isNaN(Number(e.data))) {
+      e.preventDefault();
+    }
+  }
+}

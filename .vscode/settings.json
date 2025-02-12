@@ -1,9 +1,15 @@
 {
   "files.autoSave": "onFocusChange",
+  "editor.hover.delay": 1000,
+  "editor.hover.hidingDelay": 300,
   "editor.autoClosingBrackets": "never",
   "editor.suggestOnTriggerCharacters": true,
-  "editor.quickSuggestions": true,
-  "editor.hover.enabled": false,
+  "editor.quickSuggestions": {
+    "comments": "off",
+    "other": "on",
+    "strings": "off"
+  },
+  "editor.hover.enabled": true,
   "editor.parameterHints.enabled": true,
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "html.suggest.html5": false,

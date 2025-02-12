@@ -1,0 +1,20 @@
+<esfs-layout
+  [id]="control.guid"
+  [disabled]="control.disabled"
+  [iconBefore]="control.iconBefore()"
+  [iconAfter]="control.iconAfter()"
+  [label]="control.label() ? label() : ''"
+  [textBefore]="control.textBefore() ? textBefore() : ''"
+  [textAfter]="control.textAfter() ? textAfter() : ''"
+  [hasError]="!!error()"
+  [value]="control.value"
+  >
+  <input
+    [id]="control.guid"
+    type="date"
+    [min]="minDate()"
+    [max]="maxDate()"
+    [formControl]="control"
+    [placeholder]="placeholder() | translate">
+</esfs-layout>
+

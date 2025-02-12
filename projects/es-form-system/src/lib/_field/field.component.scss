@@ -1,22 +1,10 @@
-@property --esfs-layout-color-error {
-  syntax: "<color>";
-  initial-value: #e22235;
-  inherits: true;
-}
-
-@property --esfs-layout-spacing {
-  syntax: "<length>";
-  initial-value: 10px;
-  inherits: true;
-}
-
 .esfs-field {
-  margin-bottom: var(--esfs-layout-spacing);
+  margin-bottom: var(--esfs-spacing);
 }
 
 .esfs-field__error {
-  color: var(--esfs-layout-color-error);
+  color: var(--esfs-color-error);
   font-size: 12px;
   line-height: 1.4;
-  padding: calc(var(--esfs-layout-spacing) / 2) var(--esfs-layout-spacing);
+  padding: calc(var(--esfs-spacing) / 2) var(--esfs-spacing-horizontal);
 }

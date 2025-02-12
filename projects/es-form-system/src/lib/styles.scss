@@ -1,0 +1,129 @@
+/**
+ *  Spacing
+ */
+
+@property --esfs-spacing {
+  syntax: "<length>";
+  initial-value: 10px;
+  inherits: true;
+}
+
+@property --esfs-spacing-small {
+  syntax: "<length>";
+  initial-value: 5px;
+  inherits: true;
+}
+
+@property --esfs-spacing-large {
+  syntax: "<length>";
+  initial-value: 20px;
+  inherits: true;
+}
+
+@property --esfs-spacing-vertical {
+  syntax: "<length>";
+  initial-value: 15px;
+  inherits: true;
+}
+
+@property --esfs-spacing-horizontal {
+  syntax: "<length>";
+  initial-value: 5px;
+  inherits: true;
+}
+
+@property --esfs-transition-duration {
+  syntax: "<time>";
+  initial-value: .2s;
+  inherits: true;
+}
+
+/**
+ *  Colors
+ */
+
+@property --esfs-color-neutral {
+  syntax: "<color>";
+  initial-value: #999;
+  inherits: true;
+}
+
+@property --esfs-color-light {
+  syntax: "<color>";
+  initial-value: #ccc;
+  inherits: true;
+}
+
+@property --esfs-color-dark {
+  syntax: "<color>";
+  initial-value: #666;
+  inherits: true;
+}
+
+@property --esfs-color-background {
+  syntax: "<color>";
+  initial-value: #333;
+  inherits: true;
+}
+
+@property --esfs-color-error {
+  syntax: "<color>";
+  initial-value: #e22235;
+  inherits: true;
+}
+
+@property --esfs-color-focus {
+  syntax: "<color>";
+  initial-value: #ffda52;
+  inherits: true;
+}
+
+@property --esfs-color-text {
+  syntax: "<color>";
+  initial-value: #999;
+  inherits: true;
+}
+
+@property --esfs-color-value {
+  syntax: "<color>";
+  initial-value: #fff;
+  inherits: true;
+}
+
+/**
+ *  Opacity
+ */
+
+@property --esfs-text-opacity-low {
+  syntax: "<percentage>";
+  initial-value: 25%;
+  inherits: true;
+}
+
+@property --esfs-text-opacity-medium {
+  syntax: "<percentage>";
+  initial-value: 75%;
+  inherits: true;
+}
+
+/**
+ *  Fancy
+ */
+
+ @property --esfs-transition-time {
+  syntax: "<time>";
+  initial-value: .4s;
+  inherits: true;
+}
+
+@property --esfs-border-radius {
+  syntax: "<length>";
+  initial-value: 3px;
+  inherits: true;
+}
+
+@property --esfs-box-shadow {
+  syntax: "*";
+  initial-value: 0 1px 3px 0 rgba(0,0,0,.5);
+  inherits: true;
+}

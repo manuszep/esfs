@@ -7,10 +7,10 @@
   [textBefore]="control.textBefore() ? textBefore() : ''"
   [textAfter]="control.textAfter() ? textAfter() : ''"
   [hasError]="!!error()"
+  [value]="control.value"
   >
   <input
     [id]="control.guid"
-    [disabled]="control.disabled"
     [type]="control.type()"
     [formControl]="control"
     [placeholder]="placeholder() | translate">

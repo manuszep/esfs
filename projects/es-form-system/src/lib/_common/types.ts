@@ -19,13 +19,12 @@ export type IEsfsSignalConfigToSimpleConfig<TType, TValue = any> = {
 };
 
 export type IEsfsFieldType =
+  | 'address'
   | 'checkbox'
-  | 'image'
-  | 'number'
-  | 'orientation'
-  | 'dropdown'
-  | 'text'
   | 'date'
+  | 'dropdown'
+  | 'number'
   | 'phone'
-  | 'address';
+  | 'radio'
+  | 'text';
 export type IEsfsFieldUpdateStrategy = 'change' | 'blur' | 'submit';
