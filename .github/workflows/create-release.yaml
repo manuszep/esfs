@@ -22,9 +22,7 @@ jobs:
       - name: Install dependencies and build
         run: npm ci && npm run build
       - name: Publish package on NPM
-        run: |
-          cd dist/es-form-system
-          npm publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 # jobs:
