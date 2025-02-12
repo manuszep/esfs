@@ -8,6 +8,13 @@
   padding: var(--esfs-spacing-vertical) var(--esfs-spacing-horizontal) 0;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+}
+
 .esfs-layout {
   display: flex;
   line-height: 1;
@@ -64,17 +71,11 @@
       appearance: none;
       -moz-appearance: textfield;
       line-height: inherit;
-      color: --esfs-color-value;
+      color: var(--esfs-color-value);
 
       &::placeholder {
         transition: opacity var(--esfs-transition-duration);
         opacity: 0;
-      }
-
-      &:focus {
-        &::placeholder {
-          opacity: var(--esfs-text-opacity-low);
-        }
       }
     }
 

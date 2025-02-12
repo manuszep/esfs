@@ -20,7 +20,6 @@ import {
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     EsfsFieldComponent,
     EsfsFormGroupDirective,

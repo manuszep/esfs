@@ -69,7 +69,7 @@
 
   @if (control.errors && (control.dirty || control.touched)) {
     <div class="esfs-field__error">
-      {{ control.errors | esfsFormError : control.keyPrefix() + '.' + name }}
+      {{ control.errors | esfsFormError : control.keyPrefix() + '.' + name + '.ERROR' }}
     </div>
   }
 </div>
