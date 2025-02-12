@@ -30,8 +30,8 @@ export class EsfsNumberComponent extends EsfsFieldComponentBase<
   number | null,
   EsfsFormControlNumber
 > {
-  public handleInput(e: InputEvent): void {
-    if (isNaN(Number(e.data))) {
+  public handleInput(e: Event): void {
+    if (isNaN(Number((e as InputEvent).data))) {
       e.preventDefault();
     }
   }
