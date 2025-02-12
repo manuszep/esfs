@@ -1,5 +1,5 @@
 {
-  "name": "es-form-system",
+  "name": "@manuszep/es-form-system",
   "version": "0.0.0",
   "types": "dist/es-form-system/index.d.ts",
   "repository": {
