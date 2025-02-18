@@ -15,6 +15,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { EsfsTextComponent } from '../text';
 import { EsfsNumberComponent } from '../number';
+import { EsfsDropdownComponent } from '../dropdown';
+import { EsfsLayoutComponent } from '../_layout/layout.component';
 
 @Component({
   selector: 'esfs-address',
@@ -27,6 +29,8 @@ import { EsfsNumberComponent } from '../number';
     TranslateModule,
     EsfsTextComponent,
     EsfsNumberComponent,
+    EsfsDropdownComponent,
+    EsfsLayoutComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -35,6 +39,18 @@ export class EsfsAddressComponent extends EsfsFieldComponentBase<
   IEsfsFormControlAddressValue,
   EsfsFormControlAddress
 > {
+  protected override setup(): void {
+    super.setup();
+
+    const prefix = `${this.control.keyPrefix()}.${this.name.toUpperCase()}`;
+
+    this.control.street.keyPrefix.set(prefix);
+    this.control.number.keyPrefix.set(prefix);
+    this.control.city.keyPrefix.set(prefix);
+    this.control.zip.keyPrefix.set(prefix);
+    this.control.country.keyPrefix.set(prefix);
+  }
+
   handleChange(value: IEsfsFormControlAddressValue): void {
     this.esfsChange.emit(value);
   }

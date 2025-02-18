@@ -29,7 +29,7 @@
         class="esfs-field-dropdown__control__options__option"
         [class.esfs-field-dropdown__control__options__option--selected]="control.value === option.value"
         [class.esfs-field-dropdown__control__options__option--spacer]="option.value === '---'"
-        (click)="handleSelectOption(option)">
+        (mousedown)="handleSelectOption(option)">
         @if (option.value === '---') {
           <hr>
         } @else {

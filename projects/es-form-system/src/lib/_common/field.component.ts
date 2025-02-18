@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { EsfsFormControl } from './form-control';
 import { EsfsFormGroup } from './form-group';
-import { ControlEvent, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({

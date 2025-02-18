@@ -57,7 +57,7 @@ export class EsfsFormControlNumber extends EsfsFormControl<number | null> {
         return null;
       }
 
-      return esfsValidators.min(max)(control);
+      return esfsValidators.max(max)(control);
     });
 
     return validators;

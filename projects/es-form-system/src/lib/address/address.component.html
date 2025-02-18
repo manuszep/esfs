@@ -1,7 +1,12 @@
-<div class="esfs-field-address">
-  <esfs-text class="esfs-field-address__field esfs-field-address__field--street" [control]="control.street" name="street" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
-  <esfs-text class="esfs-field-address__field esfs-field-address__field--number" [control]="control.number" name="number" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
-  <esfs-text class="esfs-field-address__field esfs-field-address__field--city" [control]="control.city" name="city" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
-  <esfs-number class="esfs-field-address__field esfs-field-address__field--zip" [control]="control.zip" name="zip" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-number>
-  <esfs-text class="esfs-field-address__field esfs-field-address__field--country" [control]="control.country" name="country" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
-</div>
+<esfs-layout
+  class="esfs-field-address"
+  [label]="control.label() ? label() : ''"
+  [hasError]="!!error()"
+  [canTypeIn]="true"
+  [value]="control.value">
+    <esfs-text class="esfs-field-address__field esfs-field-address__field--street" [control]="control.street" name="street" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
+    <esfs-text class="esfs-field-address__field esfs-field-address__field--number" [control]="control.number" name="number" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
+    <esfs-text class="esfs-field-address__field esfs-field-address__field--city" [control]="control.city" name="city" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-text>
+    <esfs-number class="esfs-field-address__field esfs-field-address__field--zip" [control]="control.zip" name="zip" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-number>
+    <esfs-dropdown class="esfs-field-address__field esfs-field-address__field--country" [control]="control.country" name="country" [form]="control" (esfsChange)="handleChange($any($event))"></esfs-dropdown>
+</esfs-layout>

@@ -16,7 +16,7 @@ import { EsfsDropdownComponent, EsfsFormControlDropdown } from '../dropdown';
 import { EsfsFormGroup, EsfsFormGroupDirective } from '../_common';
 
 import { EsfsFormControlPhone } from './phone.model';
-import { esfsPhoneCountries } from './countries';
+import { esfsPhoneCountries } from '../_common/countries';
 import { EsfsFormControlNumber, EsfsNumberComponent } from '../number';
 
 @Component({

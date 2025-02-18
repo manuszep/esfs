@@ -6,6 +6,9 @@ import {
 } from '../_common/types';
 import { EsfsFormControlNumber } from '../number';
 import { EsfsFormControlText } from '../text';
+import { signal, WritableSignal } from '@angular/core';
+import { EsfsFormControlDropdown } from '../dropdown';
+import { esfsPhoneCountries } from '../_common/countries';
 
 export type IEsfsFormControlAddressConfig = Partial<
   IEsfsSignalConfigToSimpleConfig<EsfsFormControlAddress>
@@ -16,7 +19,7 @@ type IFormGroup = {
   number: EsfsFormControlText;
   city: EsfsFormControlText;
   zip: EsfsFormControlNumber;
-  country: EsfsFormControlText;
+  country: EsfsFormControlDropdown;
 };
 
 export type IEsfsFormControlAddressValue = {
@@ -34,17 +37,38 @@ export class EsfsFormControlAddress extends EsfsFormGroup<IFormGroup> {
   public number: EsfsFormControlText;
   public city: EsfsFormControlText;
   public zip: EsfsFormControlNumber;
-  public country: EsfsFormControlText;
+  public country: EsfsFormControlDropdown;
+
+  public label: WritableSignal<string | boolean> = signal(true);
 
   constructor(
     value: Partial<IEsfsFormControlAddressValue>,
-    options: IEsfsFormControlAddressConfig
+    options: IEsfsFormControlAddressConfig = {}
   ) {
-    const street = new EsfsFormControlText(value.street ?? null);
-    const number = new EsfsFormControlText(value.number ?? null);
-    const city = new EsfsFormControlText(value.city ?? null);
-    const zip = new EsfsFormControlNumber(value.zip ?? null);
-    const country = new EsfsFormControlText(value.country ?? null);
+    const street = new EsfsFormControlText(value.street ?? null, {
+      label: false,
+      required: false,
+    });
+    const number = new EsfsFormControlText(value.number ?? null, {
+      label: false,
+      required: false,
+    });
+    const city = new EsfsFormControlText(value.city ?? null, {
+      label: false,
+      required: false,
+    });
+    const zip = new EsfsFormControlNumber(value.zip ?? null, {
+      label: false,
+      required: false,
+    });
+    const country = new EsfsFormControlDropdown(value.country ?? null, {
+      label: false,
+      required: false,
+      options: esfsPhoneCountries.map((country) => ({
+        label: `COUNTRY.${country.code}`,
+        value: country.code,
+      })),
+    });
     super(
       {
         street,

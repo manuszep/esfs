@@ -1,4 +1,11 @@
 .esfs-field-dropdown {
+  .esfs-layout--no-label {
+    .esfs-field-dropdown__control__selection__placeholder {
+      color: var(--esfs-color-neutral);
+      opacity: var(--esfs-text-opacity-medium);
+    }
+  }
+
   &__control {
     display: flex;
 
@@ -27,6 +34,7 @@
       transition: opacity var(--esfs-transition-time), visibility var(--esfs-transition-time);
       max-height: 300px;
       overflow-y: auto;
+      height: 0;
 
       &__option {
         padding: var(--esfs-spacing-small) var(--esfs-spacing-large);
@@ -57,5 +65,6 @@
     visibility: visible;
     opacity: 1;
     pointer-events: all;
+    height: auto;
   }
 }

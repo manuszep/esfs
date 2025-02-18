@@ -1,10 +1,11 @@
 import { AbstractControlOptions, FormGroup } from '@angular/forms';
 import { EsfsFormControl } from './form-control';
 import { signal } from '@angular/core';
+import { EsfsFormArray } from './form-array';
 
 export type IEsfsFormGroupConfig = Record<
   string,
-  EsfsFormControl | EsfsFormGroup
+  EsfsFormControl | EsfsFormGroup | EsfsFormArray
 >;
 
 export type IEsfsFormGroupOptions = AbstractControlOptions;
