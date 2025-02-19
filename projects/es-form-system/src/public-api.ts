@@ -2,6 +2,7 @@
  * Public API Surface of es-form-system
  */
 
+export * from './lib/_layout';
 export * from './lib/address';
 export * from './lib/checkbox';
 export * from './lib/date';
