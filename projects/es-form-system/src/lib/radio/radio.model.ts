@@ -8,7 +8,7 @@ import {
 import { Observable, of } from 'rxjs';
 
 export type IEsfsFormControlRadioConfig<TValue = string> = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlRadio<TValue>>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlRadioBase<TValue>>
 > & {
   options?: Observable<IEsfsRadioOption<TValue>[]> | IEsfsRadioOption<TValue>[];
 };
@@ -18,7 +18,7 @@ export interface IEsfsRadioOption<TValue = null> {
   value: TValue;
 }
 
-export class EsfsFormControlRadio<
+export abstract class EsfsFormControlRadioBase<
   TValue = string | null
 > extends EsfsFormControl<TValue> {
   public override fieldType: IEsfsFieldType = 'radio';

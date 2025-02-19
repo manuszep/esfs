@@ -8,7 +8,7 @@ import {
 import { Observable, of } from 'rxjs';
 
 export type IEsfsFormControlDropdownConfig<TValue = null> = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlDropdown<TValue>>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlDropdownBase<TValue>>
 > & {
   options?:
     | Observable<IEsfsDropdownOption<TValue>[]>
@@ -20,7 +20,7 @@ export interface IEsfsDropdownOption<TValue = null> {
   value: TValue;
 }
 
-export class EsfsFormControlDropdown<
+export abstract class EsfsFormControlDropdownBase<
   TValue = string | null
 > extends EsfsFormControl<TValue> {
   public override fieldType: IEsfsFieldType = 'dropdown';

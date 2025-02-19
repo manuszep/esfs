@@ -9,6 +9,7 @@ import {
 
 import { IEsfsFieldType, IEsfsSignalConfigToSimpleConfig } from './types';
 import { esfsValidators, IEsfsValidationError } from './validators';
+import { EsfsFieldComponentBase } from './field.component';
 
 export type IEsfsFormControlConfig<TValue> = Partial<
   IEsfsSignalConfigToSimpleConfig<EsfsFormControl<TValue>>
@@ -26,6 +27,7 @@ export class EsfsFormControl<TValue = any> extends FormControl<TValue | null> {
   public help: WritableSignal<string | boolean> = signal(false);
 
   public fieldType: IEsfsFieldType = 'none';
+  public fieldComponent: any = null;
 
   protected originalValidators: ValidatorFn[] = [];
   protected originalAsyncValidators: AsyncValidatorFn[] = [];

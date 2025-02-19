@@ -8,9 +8,13 @@ import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlNumber } from './number.model';
+import { EsfsFormControlNumberBase } from './number.model';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { TranslateModule } from '@ngx-translate/core';
+
+export class EsfsFormControlNumber extends EsfsFormControlNumberBase {
+  override fieldComponent = EsfsNumberComponent;
+}
 
 @Component({
   selector: 'esfs-number',

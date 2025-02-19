@@ -9,10 +9,12 @@ import {
 import { esfsValidators, IEsfsValidationError } from '../_common/validators';
 
 export type IEsfsFormControlNumberConfig = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlNumber>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlNumberBase>
 >;
 
-export class EsfsFormControlNumber extends EsfsFormControl<number | null> {
+export abstract class EsfsFormControlNumberBase extends EsfsFormControl<
+  number | null
+> {
   public override fieldType: IEsfsFieldType = 'number';
 
   min: WritableSignal<number | null> = signal<number | null>(null);

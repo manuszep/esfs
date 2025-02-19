@@ -8,9 +8,13 @@ import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlCheckbox } from './checkbox.model';
+import { EsfsFormControlCheckboxBase } from './checkbox.model';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { TranslateModule } from '@ngx-translate/core';
+
+export class EsfsFormControlCheckbox extends EsfsFormControlCheckboxBase {
+  override fieldComponent = EsfsCheckboxComponent;
+}
 
 @Component({
   selector: 'esfs-checkbox',

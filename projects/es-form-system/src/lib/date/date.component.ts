@@ -11,9 +11,13 @@ import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlDate } from './date.model';
+import { EsfsFormControlDateBase } from './date.model';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { TranslateModule } from '@ngx-translate/core';
+
+export class EsfsFormControlDate extends EsfsFormControlDateBase {
+  override fieldComponent = EsfsDateComponent;
+}
 
 @Component({
   selector: 'esfs-date',

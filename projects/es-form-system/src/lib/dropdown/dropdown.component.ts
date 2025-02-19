@@ -13,9 +13,18 @@ import { combineLatestWith, takeUntil } from 'rxjs';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlDropdown, IEsfsDropdownOption } from './dropdown.model';
+import {
+  EsfsFormControlDropdownBase,
+  IEsfsDropdownOption,
+} from './dropdown.model';
 import { EsfsFormControlText } from '../text';
 import { EsfsFormGroup } from '../_common';
+
+export class EsfsFormControlDropdown<
+  TValue = string | null
+> extends EsfsFormControlDropdownBase<TValue> {
+  override fieldComponent = EsfsDropdownComponent<TValue>;
+}
 
 @Component({
   selector: 'esfs-dropdown',

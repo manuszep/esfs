@@ -27,8 +27,9 @@ export abstract class EsfsFieldComponentBase<
   @Input({ required: true }) name!: string;
   @Input({ required: true }) form!: FormGroup;
 
-  @Output() public esfsBlur: EventEmitter<void> = new EventEmitter<void>();
-  @Output() public esfsChange: EventEmitter<TValue | null> =
+  @Input() @Output() public esfsBlur: EventEmitter<void> =
+    new EventEmitter<void>();
+  @Input() @Output() public esfsChange: EventEmitter<TValue | null> =
     new EventEmitter<TValue | null>();
 
   public isValid = signal(true);

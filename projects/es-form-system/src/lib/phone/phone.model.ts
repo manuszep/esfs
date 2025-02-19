@@ -6,14 +6,14 @@ import {
   IEsfsFieldType,
   IEsfsSignalConfigToSimpleConfig,
 } from '../_common/types';
-import { EsfsFormControlDropdown } from '../dropdown';
-import { EsfsFormControlText } from '../text';
 
 export type IEsfsFormControlPhoneConfig = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlPhone>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlPhoneBase>
 >;
 
-export class EsfsFormControlPhone extends EsfsFormControl<string | null> {
+export abstract class EsfsFormControlPhoneBase extends EsfsFormControl<
+  string | null
+> {
   public override fieldType: IEsfsFieldType = 'phone';
 
   public clearable: WritableSignal<boolean> = signal(false);

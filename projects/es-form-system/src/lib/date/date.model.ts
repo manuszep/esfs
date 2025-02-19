@@ -8,10 +8,10 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { esfsValidators, IEsfsValidationError } from '../_common/validators';
 
 export type IEsfsFormControlDateConfig = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlDate>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlDateBase>
 >;
 
-export class EsfsFormControlDate extends EsfsFormControl<string> {
+export abstract class EsfsFormControlDateBase extends EsfsFormControl<string> {
   public override fieldType: IEsfsFieldType = 'date';
 
   min: WritableSignal<Date | null> = signal<Date | null>(null);

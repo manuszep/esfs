@@ -6,7 +6,7 @@ import {
   inject,
   ViewEncapsulation,
 } from '@angular/core';
-import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -15,9 +15,13 @@ import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { EsfsDropdownComponent, EsfsFormControlDropdown } from '../dropdown';
 import { EsfsFormGroup, EsfsFormGroupDirective } from '../_common';
 
-import { EsfsFormControlPhone } from './phone.model';
+import { EsfsFormControlPhoneBase } from './phone.model';
 import { esfsPhoneCountries } from '../_common/countries';
 import { EsfsFormControlNumber, EsfsNumberComponent } from '../number';
+
+export class EsfsFormControlPhone extends EsfsFormControlPhoneBase {
+  override fieldComponent = EsfsPhoneComponent;
+}
 
 @Component({
   selector: 'esfs-phone',

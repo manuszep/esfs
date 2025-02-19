@@ -1,5 +1,17 @@
 <div class="esfs-field">
-  @switch (control.fieldType) {
+  {{ control.fieldComponent | json }}
+  <ng-container
+    #fieldContainer
+    [ngComponentOutlet]="control.fieldComponent"
+    [ngComponentOutletInputs]="{
+      name: name,
+      form: form,
+      control: control,
+      esfsChange: esfsChange,
+      esfsBlur: esfsBlur
+    }">
+  </ng-container>
+  <!--@switch (control.fieldType) {
     @case ('address') {
       <esfs-address
         #fld
@@ -75,7 +87,7 @@
         [control]="$any(control)"
         (esfsChange)="handleChange($any($event))"></esfs-radio>
     }
-  }
+}-->
 
   @if (control.errors && (control.dirty || control.touched)) {
     <div class="esfs-field__error">

@@ -11,7 +11,7 @@ import { EsfsFormControlDropdown } from '../dropdown';
 import { esfsPhoneCountries } from '../_common/countries';
 
 export type IEsfsFormControlAddressConfig = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlAddress>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlAddressBase>
 >;
 
 type IFormGroup = {
@@ -30,7 +30,7 @@ export type IEsfsFormControlAddressValue = {
   country: string;
 };
 
-export class EsfsFormControlAddress extends EsfsFormGroup<IFormGroup> {
+export abstract class EsfsFormControlAddressBase extends EsfsFormGroup<IFormGroup> {
   public fieldType: IEsfsFieldType = 'address';
 
   public street: EsfsFormControlText;

@@ -8,9 +8,15 @@ import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlText } from './text.model';
+import { EsfsFormControlTextBase } from './text.model';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { TranslateModule } from '@ngx-translate/core';
+
+export class EsfsFormControlText<
+  TValue = string | null
+> extends EsfsFormControlTextBase<TValue> {
+  override fieldComponent = EsfsTextComponent<TValue>;
+}
 
 @Component({
   selector: 'esfs-text',
@@ -30,8 +36,8 @@ export class EsfsTextComponent<TValue = string> extends EsfsFieldComponentBase<
   TValue,
   EsfsFormControlText<TValue>
 > {
-  handleChange(event: ValueChangeEvent<TValue>): void {
-    this.esfsChange.emit(event.value);
+  handleChange(): void {
+    this.esfsChange.emit(this.control.value);
   }
 
   handleBlur(): void {

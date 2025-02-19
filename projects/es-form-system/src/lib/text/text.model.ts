@@ -17,10 +17,10 @@ export type IAbeNgFieldTextConfigType =
   | 'url';
 
 export type IEsfsFormControlTextConfig<TValue = string> = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlText<TValue>>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlTextBase<TValue>>
 >;
 
-export class EsfsFormControlText<
+export class EsfsFormControlTextBase<
   TValue = string | null
 > extends EsfsFormControl<TValue> {
   public override fieldType: IEsfsFieldType = 'text';

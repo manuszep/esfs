@@ -8,9 +8,15 @@ import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
 import { EsfsFieldComponentBase } from '../_common/field.component';
 
-import { EsfsFormControlRadio } from './radio.model';
+import { EsfsFormControlRadioBase } from './radio.model';
 import { EsfsLayoutComponent } from '../_layout/layout.component';
 import { TranslateModule } from '@ngx-translate/core';
+
+export class EsfsFormControlRadio<
+  TValue = string | null
+> extends EsfsFormControlRadioBase<TValue> {
+  override fieldComponent = EsfsRadioComponent<TValue>;
+}
 
 @Component({
   selector: 'esfs-radio',

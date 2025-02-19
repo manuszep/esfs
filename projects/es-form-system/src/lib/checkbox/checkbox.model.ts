@@ -9,10 +9,10 @@ import {
 import { esfsValidators, IEsfsValidationError } from '../_common/validators';
 
 export type IEsfsFormControlCheckboxConfig = Partial<
-  IEsfsSignalConfigToSimpleConfig<EsfsFormControlCheckbox>
+  IEsfsSignalConfigToSimpleConfig<EsfsFormControlCheckboxBase>
 >;
 
-export class EsfsFormControlCheckbox extends EsfsFormControl<boolean> {
+export abstract class EsfsFormControlCheckboxBase extends EsfsFormControl<boolean> {
   public override fieldType: IEsfsFieldType = 'checkbox';
 
   style: WritableSignal<'classic' | 'toggle'> = signal<'classic' | 'toggle'>(
