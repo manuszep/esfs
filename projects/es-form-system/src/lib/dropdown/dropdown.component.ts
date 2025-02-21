@@ -19,6 +19,7 @@ import {
 } from './dropdown.model';
 import { EsfsFormControlText } from '../text';
 import { EsfsFormGroup } from '../_common';
+import { esfsValidateDropdown } from './dropdown.validator';
 
 export class EsfsFormControlDropdown<
   TValue = string | null
@@ -46,6 +47,7 @@ export class EsfsDropdownComponent<
   public searchControl: EsfsFormControlText<string>;
   public searchForm: EsfsFormGroup;
   public filteredOptions = signal<IEsfsDropdownOption<TValue>[]>([]);
+  public selectedValue = signal<string>('');
 
   constructor(
     protected override readonly _cdRef: ChangeDetectorRef,
@@ -61,6 +63,10 @@ export class EsfsDropdownComponent<
 
   public override setup(): void {
     super.setup();
+
+    this.control.addValidators(
+      esfsValidateDropdown(this.searchControl, this.filteredOptions)
+    );
 
     this.control.options
       .pipe(takeUntil(this._unsubscribe))
@@ -78,6 +84,7 @@ export class EsfsDropdownComponent<
           const value = this.translateService.instant(matchingOption ?? '');
 
           this.searchForm.get('search')?.setValue(value, { emitEvent: false });
+          this.selectedValue.set(value);
         }
       });
 
@@ -89,8 +96,6 @@ export class EsfsDropdownComponent<
         takeUntil(this._unsubscribe)
       )
       .subscribe(([search, options]) => {
-        this.control.markAsDirty();
-        this.control.markAsTouched();
         let filteredOptions = options;
         if (!!search) {
           // Filter the options based on the search value
@@ -114,6 +119,7 @@ export class EsfsDropdownComponent<
     const value = this.translateService.instant(option.label);
 
     this.searchForm.get('search')?.setValue(value, { emitEvent: false });
+    this.selectedValue.set(value);
     this.control.setValue(option.value);
     this.esfsBlur.emit();
     this.esfsChange.emit(option.value);
@@ -125,5 +131,12 @@ export class EsfsDropdownComponent<
 
   handleBlur(): void {
     this.esfsBlur.emit();
+
+    const searchField = this.searchForm.get('search');
+
+    if (searchField?.dirty || searchField?.touched) {
+      this.control.markAsDirty();
+      this.control.markAsTouched();
+    }
   }
 }

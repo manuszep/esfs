@@ -1,12 +1,4 @@
-@mixin esfs-layout-block {
-  display: block;
-  border: 2px solid var(--esfs-color-text);
-  border-width: 0 0 2px 0;
-  outline: none;
-  background-color: transparent;
-  transition: border-color var(--esfs-transition-duration);
-  padding: var(--esfs-spacing-vertical) var(--esfs-spacing-horizontal) 0;
-}
+@import './layout.common.scss';
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

@@ -1,3 +1,5 @@
+@import '../_layout/layout.common.scss';
+
 .esfs-field-dropdown {
   .esfs-layout--no-label {
     .esfs-field-dropdown__control__selection__placeholder {
@@ -7,7 +9,15 @@
   }
 
   &__control {
-    display: flex;
+    &__value {
+      @include esfs-layout-block;
+      width: 100%;
+      text-align: left;
+
+      &:focus {
+        --esfs-color-text: var(--esfs-color-focus);
+      }
+    }
 
     &__selection {
       &__placeholder {
@@ -17,6 +27,14 @@
         left: var(--esfs-spacing-horizontal);
         pointer-events: none;
       }
+    }
+
+    &__icon {
+      position: absolute;
+      right: var(--esfs-spacing-horizontal);
+      top: var(--esfs-spacing);
+      pointer-events: none;
+      opacity: .5;
     }
 
     &__options {
@@ -30,14 +48,14 @@
       box-shadow: var(--esfs-box-shadow);
       top: 22px;
       list-style: none;
-      padding: 0 var(--esfs-spacing-horizontal);
+      padding: var(--esfs-spacing-small) var(--esfs-spacing-horizontal) var(--esfs-spacing);
       transition: opacity var(--esfs-transition-time), visibility var(--esfs-transition-time);
       max-height: 300px;
       overflow-y: auto;
       height: 0;
 
       &__option {
-        padding: var(--esfs-spacing-small) var(--esfs-spacing-large);
+        padding: var(--esfs-spacing) var(--esfs-spacing-horizontal);
         //border-bottom: 1px solid var(--esfs-color-dark);
         transition: background-color var(--esfs-transition-time), color var(--esfs-transition-time);
 
@@ -61,10 +79,12 @@
     }
   }
 
-  &:has(:focus) .esfs-field-dropdown__control__options {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: all;
-    height: auto;
+  &:has(button:focus), &--has-search:has(input:focus) {
+    .esfs-field-dropdown__control__options {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+      height: auto;
+    }
   }
 }

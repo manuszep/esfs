@@ -25,12 +25,19 @@ export abstract class EsfsFormControlDropdownBase<
 > extends EsfsFormControl<TValue> {
   public override fieldType: IEsfsFieldType = 'dropdown';
 
+  searchable: WritableSignal<boolean> = signal(false);
   clearable: WritableSignal<boolean> = signal(false);
   textBefore: WritableSignal<boolean> = signal(false);
   textAfter: WritableSignal<boolean> = signal(false);
   iconBefore: WritableSignal<string | false> = signal(false);
   iconAfter: WritableSignal<string | false> = signal(false);
   options!: Observable<IEsfsDropdownOption<TValue>[]>;
+  compareOptionsToValue: WritableSignal<
+    (option: IEsfsDropdownOption<TValue>, value: any) => boolean
+  > = signal(
+    (option: IEsfsDropdownOption<TValue>, value: any) =>
+      JSON.stringify(option.value) === JSON.stringify(value)
+  );
 
   constructor(value: TValue, config?: IEsfsFormControlDropdownConfig<TValue>) {
     super(value, config ?? {});

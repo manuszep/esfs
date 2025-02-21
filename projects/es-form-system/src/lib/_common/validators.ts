@@ -90,6 +90,10 @@ const requiredTrue =
 const date =
   (message?: string) =>
   (control: AbstractControl): IEsfsValidationError => {
+    if (!control.value) {
+      return null;
+    }
+
     const valid = esfsDateIsValid(control.value);
     const error = message ?? 'validDate';
 

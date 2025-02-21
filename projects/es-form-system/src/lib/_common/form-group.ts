@@ -5,7 +5,7 @@ import { EsfsFormArray } from './form-array';
 
 export type IEsfsFormGroupConfig = Record<
   string,
-  EsfsFormControl | EsfsFormGroup | EsfsFormArray
+  EsfsFormControl | EsfsFormGroup | EsfsFormArray<any>
 >;
 
 export type IEsfsFormGroupOptions = AbstractControlOptions;
