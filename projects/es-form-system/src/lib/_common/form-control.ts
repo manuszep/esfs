@@ -9,7 +9,6 @@ import {
 
 import { IEsfsFieldType, IEsfsSignalConfigToSimpleConfig } from './types';
 import { esfsValidators, IEsfsValidationError } from './validators';
-import { EsfsFieldComponentBase } from './field.component';
 
 export type IEsfsFormControlConfig<TValue> = Partial<
   IEsfsSignalConfigToSimpleConfig<EsfsFormControl<TValue>>

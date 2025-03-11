@@ -30,7 +30,9 @@ export abstract class EsfsFormControlDateBase extends EsfsFormControl<string> {
   }
 
   protected override buildValidatorsArray(): ValidatorFn[] {
-    const validators: ValidatorFn[] = [esfsValidators.date()];
+    const validators: ValidatorFn[] = super.buildValidatorsArray();
+
+    validators.push(esfsValidators.date());
 
     /**
      * Signals can change and if we setup the validators according to the current config, it may not be valid later on

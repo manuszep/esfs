@@ -34,7 +34,7 @@ export abstract class EsfsFormControlNumberBase extends EsfsFormControl<
   }
 
   protected override buildValidatorsArray(): ValidatorFn[] {
-    const validators: ValidatorFn[] = [];
+    const validators: ValidatorFn[] = super.buildValidatorsArray();
 
     /**
      * Signals can change and if we setup the validators according to the current config, it may not be valid later on
