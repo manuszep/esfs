@@ -12,6 +12,7 @@
   <input
     [id]="control.guid"
     type="number"
+    step="any"
     [formControl]="control"
     [placeholder]="placeholder() | translate"
     (input)="handleInput($event)"
