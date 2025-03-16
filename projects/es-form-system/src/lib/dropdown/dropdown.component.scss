@@ -1,4 +1,4 @@
-@import '../_layout/layout.common.scss';
+@use '../_layout/layout.common.scss' as layout;
 
 .esfs-field-dropdown {
   .esfs-layout--no-label {
@@ -10,7 +10,7 @@
 
   &__control {
     &__value {
-      @include esfs-layout-block;
+      @include layout.esfs-layout-block;
       width: 100%;
       text-align: left;
 

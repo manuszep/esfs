@@ -1,4 +1,4 @@
-@import './layout.common.scss';
+@use './layout.common.scss' as layout;
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -32,7 +32,7 @@ input:-webkit-autofill::first-line {
   }
 
   &__text, &__icon {
-    @include esfs-layout-block;
+    @include layout.esfs-layout-block;
     color: var(--esfs-color-text);
 
     &--before {
@@ -58,7 +58,7 @@ input:-webkit-autofill::first-line {
 
   &--can-type-in {
     input, select {
-      @include esfs-layout-block;
+      @include layout.esfs-layout-block;
       width: 100%;
       min-width: 40px;
       appearance: none;

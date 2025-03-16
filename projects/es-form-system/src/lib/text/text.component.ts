@@ -22,7 +22,6 @@ export class EsfsFormControlText<
   selector: 'esfs-text',
   templateUrl: './text.component.html',
   styleUrl: './text.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

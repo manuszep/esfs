@@ -16,16 +16,15 @@ import {
 } from 'es-form-system';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    EsfsFieldComponent,
-    EsfsFormGroupDirective,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        EsfsFieldComponent,
+        EsfsFormGroupDirective,
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   textControl: EsfsFormControlText<string>;

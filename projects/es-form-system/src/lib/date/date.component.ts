@@ -23,7 +23,6 @@ export class EsfsFormControlDate extends EsfsFormControlDateBase {
   selector: 'esfs-date',
   templateUrl: './date.component.html',
   styleUrl: './date.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

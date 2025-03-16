@@ -27,7 +27,6 @@ export class EsfsFormControlPhone extends EsfsFormControlPhoneBase {
   selector: 'esfs-phone',
   templateUrl: './phone.component.html',
   styleUrl: './phone.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -19,7 +19,6 @@ import { EsfsFormErrorPipe } from '../_common/error.pipe';
   selector: 'esfs-field',
   templateUrl: './field.component.html',
   styleUrl: './field.component.scss',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [CommonModule, EsfsFormErrorPipe],

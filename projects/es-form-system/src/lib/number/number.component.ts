@@ -20,7 +20,6 @@ export class EsfsFormControlNumber extends EsfsFormControlNumberBase {
   selector: 'esfs-number',
   templateUrl: './number.component.html',
   styleUrl: './number.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

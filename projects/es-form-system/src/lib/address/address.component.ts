@@ -26,7 +26,6 @@ export class EsfsFormControlAddress extends EsfsFormControlAddressBase {
   selector: 'esfs-address',
   templateUrl: './address.component.html',
   styleUrl: './address.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

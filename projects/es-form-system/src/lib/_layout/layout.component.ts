@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [CommonModule, TranslateModule],
 })
 export class EsfsLayoutComponent {

@@ -31,7 +31,6 @@ export class EsfsFormControlDropdown<
   selector: 'esfs-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

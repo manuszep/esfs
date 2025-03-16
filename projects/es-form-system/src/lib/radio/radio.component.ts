@@ -22,7 +22,6 @@ export class EsfsFormControlRadio<
   selector: 'esfs-radio',
   templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -18,7 +18,6 @@ const formDirectiveProvider: Provider = {
   providers: [formDirectiveProvider],
   host: { '(submit)': 'onSubmit($event)', '(reset)': 'onReset()' },
   exportAs: 'esfsForm',
-  standalone: true,
 })
 export class EsfsFormGroupDirective
   extends FormGroupDirective

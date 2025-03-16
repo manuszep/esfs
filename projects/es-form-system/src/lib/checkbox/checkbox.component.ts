@@ -20,7 +20,6 @@ export class EsfsFormControlCheckbox extends EsfsFormControlCheckboxBase {
   selector: 'esfs-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
