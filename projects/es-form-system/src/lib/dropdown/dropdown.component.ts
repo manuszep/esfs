@@ -77,8 +77,11 @@ export class EsfsDropdownComponent<
           this.control.value !== null &&
           typeof this.control.value !== 'undefined'
         ) {
-          const matchingOption = options.find(
-            (option) => option.value === this.control.value
+          const valueComparator =
+            this.control.compareOptionsToValue() ??
+            ((option: any, value: any) => option.value === value);
+          const matchingOption = options.find((option) =>
+            valueComparator(option, this.control.value)
           )?.label;
           const value = this.translateService.instant(matchingOption ?? '');
 
