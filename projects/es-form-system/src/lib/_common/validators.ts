@@ -135,7 +135,7 @@ const futureDate =
   (control: AbstractControl): IEsfsValidationError => {
     const date = esfsDateConvertHtmlToJs(control.value);
 
-    if (!date) {
+    if (!date || !control.value) {
       return null;
     }
 
