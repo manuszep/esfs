@@ -18,7 +18,7 @@ export const esfsValidateDropdown =
 
     const hasValue = control.value !== null && control.value !== undefined;
     const matchingOption = options().find(
-      (option) => option.label === searchControlValue
+      (option) => option.value === control.value
     );
 
     const valid =
