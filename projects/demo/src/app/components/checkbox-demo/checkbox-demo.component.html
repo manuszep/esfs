@@ -1,0 +1,76 @@
+<demo-layout
+  title="Checkbox Component"
+  description="A checkbox component with multiple style variations and validation support."
+  [form]="form"
+  fieldName="checkboxField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="toggleValue()">Toggle Value</button>
+  </div>
+
+  <div slot="configuration">
+    <demo-configuration title="Configuration Options">
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.value"
+            (change)="control.setValue($any($event.target).checked)"
+          />
+          Checked
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.required()"
+            (change)="control.required.set($any($event.target).checked)"
+          />
+          Required
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.disabled"
+            (change)="
+              control.disabled ? control.enable() : control.disable()
+            "
+          />
+          Disabled
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.label()"
+            (change)="control.label.set($any($event.target).checked)"
+          />
+          Show Label
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>Style</label>
+        <select
+          [value]="control.style()"
+          (change)="control.style.set($any($event.target).value)"
+        >
+          <option value="classic">Classic</option>
+          <option value="toggle">Toggle</option>
+        </select>
+      </div>
+    </demo-configuration>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+  </div>
+</demo-layout>

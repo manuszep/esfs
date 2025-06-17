@@ -36,28 +36,37 @@ export class EsfsDateComponent extends EsfsFieldComponentBase<
   string,
   EsfsFormControlDate
 > {
-  public minDate: Signal<string> = signal<string>('');
-  public maxDate: Signal<string> = signal<string>('');
+  public minDate = signal<string>('');
+  public maxDate = signal<string>('');
 
   protected override setup(): void {
     super.setup();
 
-    this.minDate = computed(() => {
-      const min = this.control.min();
-      return min ? min.toISOString().split('T')[0] : '';
-    });
-
-    this.maxDate = computed(() => {
-      const max = this.control.max();
-      return max ? max.toISOString().split('T')[0] : '';
-    });
+    const min = this.control().min();
+    if (min) {
+      this.minDate.set(min.toISOString().split('T')[0]);
+    }
+    const max = this.control().max();
+    if (max) {
+      this.maxDate.set(max.toISOString().split('T')[0]);
+    }
   }
 
   handleChange(event: ValueChangeEvent<string>): void {
-    this.esfsChange.emit(event.value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(event.value);
+    } else {
+      this.esfsChange.emit(event.value);
+    }
   }
 
   handleBlur(): void {
-    this.esfsBlur.emit();
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
   }
 }

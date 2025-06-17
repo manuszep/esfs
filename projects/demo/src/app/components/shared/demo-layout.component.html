@@ -1,0 +1,29 @@
+<div class="demo-page">
+  <h1>{{ title() }}</h1>
+  <p class="description">{{ description() }}</p>
+
+  <div class="demo-grid">
+    <div class="demo-section">
+      <h2>Live Demo</h2>
+      <form [esfsFormGroup]="form()" class="demo-form">
+        <esfs-field [name]="fieldName()"></esfs-field>
+      </form>
+
+      <div class="actions">
+        <ng-content select="[slot=actions]"></ng-content>
+      </div>
+
+      <ng-content select="[slot=configuration]"></ng-content>
+    </div>
+
+    <div class="demo-section">
+      <h2>Form State</h2>
+      <div class="output-section">
+        <h3>Value & Validation</h3>
+        <div class="json-output">{{ form().value | json }}</div>
+
+        <ng-content select="[slot=output]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

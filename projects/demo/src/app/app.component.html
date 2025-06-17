@@ -1,17 +1,20 @@
-<form class="card" [esfsFormGroup]="form">
-  <esfs-field name="text"></esfs-field>
-  <esfs-field name="checkbox"></esfs-field>
-  <esfs-field name="checkbox2"></esfs-field>
-  <esfs-field name="dropdown"></esfs-field>
-  <esfs-field name="number"></esfs-field>
-  <esfs-field name="address"></esfs-field>
-  <esfs-field name="date"></esfs-field>
-  <esfs-field name="phone"></esfs-field>
-  <esfs-field name="radio"></esfs-field>
+<div class="app">
+  <header class="app-header">
+    <h1>{{ title }}</h1>
+    <nav class="app-nav">
+      <ul class="nav-list">
+        @for (item of navigationItems; track item.path) {
+          <li class="nav-item">
+            <a [routerLink]="item.path" routerLinkActive="active" class="nav-link">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </header>
 
-  <button (click)="handleButtonClick()">Change config</button>
-</form>
-
-<div class="card">
-  <code><pre>{{ form.value | json }}</pre></code>
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
 </div>

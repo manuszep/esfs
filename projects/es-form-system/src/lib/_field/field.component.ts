@@ -2,12 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Host,
-  Input,
+  input,
   OnInit,
   Optional,
-  Output,
+  output,
   SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
@@ -24,15 +23,13 @@ import { EsfsFormErrorPipe } from '../_common/error.pipe';
   imports: [CommonModule, EsfsFormErrorPipe],
 })
 export class EsfsFieldComponent<TValue> implements OnInit {
-  @Input({ required: true })
-  name!: string;
+  name = input.required<string>();
 
   public control!: EsfsFormControl<TValue>;
   public form!: EsfsFormGroup;
 
-  @Output() public esfsBlur: EventEmitter<void> = new EventEmitter<void>();
-  @Output() public esfsChange: EventEmitter<TValue | null> =
-    new EventEmitter<TValue | null>();
+  esfsBlur = output<void>();
+  esfsChange = output<TValue | null>();
 
   constructor(
     @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer
@@ -41,9 +38,9 @@ export class EsfsFieldComponent<TValue> implements OnInit {
   ngOnInit(): void {
     // Extract the FormControl from the parent FormGroup. This is required as it contains the field configuration.
     if (this.controlContainer) {
-      if (this.name) {
+      if (this.name()) {
         this.control = this.controlContainer?.control?.get(
-          this.name
+          this.name()
         ) as EsfsFormControl<TValue>;
         this.form = this.controlContainer.control as EsfsFormGroup;
       } else {
@@ -55,4 +52,12 @@ export class EsfsFieldComponent<TValue> implements OnInit {
       console.warn("Can't find parent esfsFormGroup directive");
     }
   }
+
+  handleChange = (value: TValue | null): void => {
+    this.esfsChange.emit(value);
+  };
+
+  handleBlur = (): void => {
+    this.esfsBlur.emit();
+  };
 }

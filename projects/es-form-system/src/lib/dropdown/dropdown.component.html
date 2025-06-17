@@ -1,43 +1,42 @@
 <esfs-layout
   class="esfs-field-dropdown"
-  [class.esfs-field-dropdown--searchable]="control.searchable()"
-  [class.esfs-field-dropdown--has-search]="control.searchable() && searchForm.get('search')?.value && filteredOptions().length > 0"
-  [id]="control.guid"
-  [disabled]="control.disabled"
-  [iconBefore]="control.iconBefore()"
-  [iconAfter]="control.iconAfter()"
-  [label]="control.label() ? label() : ''"
-  [textBefore]="control.textBefore() ? textBefore() : ''"
-  [textAfter]="control.textAfter() ? textAfter() : ''"
+  [class.esfs-field-dropdown--searchable]="control().searchable()"
+  [class.esfs-field-dropdown--has-search]="control().searchable() && searchForm.get('search')?.value && displayedOptions().length > 0"
+  [id]="control().guid"
+  [disabled]="control().disabled"
+  [iconBefore]="control().iconBefore()"
+  [iconAfter]="control().iconAfter()"
+  [label]="control().label() ? label() : ''"
+  [textBefore]="control().textBefore() ? textBefore() : ''"
+  [textAfter]="control().textAfter() ? textAfter() : ''"
   [hasError]="!!error()"
-  [value]="control.value"
-  >
+  [value]="control().value"
+  [canTypeIn]="true">
   <div class="esfs-field-dropdown__control">
     <div class="esfs-field-dropdown__control__selection">
-      @if (!searchForm.get('search')?.value && control.placeholder() && control.searchable()) {
+      @if (!searchForm.get('search')?.value && control().placeholder() && control().searchable()) {
         <span class="esfs-field-dropdown__control__selection__placeholder">{{ placeholder() | translate }}</span>
       }
     </div>
-    @if (control.searchable()) {
+    @if (control().searchable()) {
       <input
-        [id]="control.guid"
+        [id]="control().guid"
         type="text"
         [formControl]="searchControl"
-        (input)="handleSearchInput()"
-        (blur)="handleBlur()">
+        (blur)="handleBlur()" />
     } @else {
-      <button class="esfs-field-dropdown__control__value" tabindex="0">{{ selectedValue() !== '' ? selectedValue() : 'Select' }}</button>
+      <button class="esfs-field-dropdown__control__value" tabindex="0">{{ selectedOption()?.label ? (selectedOption()!.label | translate) : 'Select' }}</button>
     }
 
-    <span class="esfs-field-dropdown__control__icon material-symbols-outlined">{{ control.searchable() ? 'search' : 'expand_more' }}</span>
+    <span class="esfs-field-dropdown__control__icon material-symbols-outlined">{{ control().searchable() ? 'search' : 'expand_more' }}</span>
   </div>
   <ul class="esfs-field-dropdown__control__options">
-    @for (option of filteredOptions(); track option.value) {
+    @for (option of displayedOptions(); track option.value) {
       <li
         class="esfs-field-dropdown__control__options__option"
-        [class.esfs-field-dropdown__control__options__option--selected]="control.value === option.value"
+        [class.esfs-field-dropdown__control__options__option--selected]="control().value === option.value"
         [class.esfs-field-dropdown__control__options__option--spacer]="option.value === '---'"
-        (mousedown)="handleSelectOption(option)">
+        (mousedown)="handleSelect(option)">
         @if (option.value === '---') {
           <hr>
         } @else {

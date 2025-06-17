@@ -36,6 +36,20 @@ export class EsfsRadioComponent<TValue = string> extends EsfsFieldComponentBase<
   EsfsFormControlRadio<TValue>
 > {
   handleChange(event: ValueChangeEvent<TValue>): void {
-    this.esfsChange.emit(event.value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(event.value);
+    } else {
+      this.esfsChange.emit(event.value);
+    }
+  }
+
+  handleBlur(): void {
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
   }
 }

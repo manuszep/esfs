@@ -40,10 +40,20 @@ export class EsfsNumberComponent extends EsfsFieldComponentBase<
   }
 
   handleChange(event: ValueChangeEvent<number | null>): void {
-    this.esfsChange.emit(event.value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(event.value);
+    } else {
+      this.esfsChange.emit(event.value);
+    }
   }
 
   handleBlur(): void {
-    this.esfsBlur.emit();
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
   }
 }

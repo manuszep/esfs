@@ -1,0 +1,122 @@
+<demo-layout
+  title="Number Field Component"
+  description="A number input component with min/max validation, step control, and number formatting."
+  [form]="form"
+  fieldName="numberField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="markAllAsTouched()">Mark as Touched</button>
+  </div>
+
+  <div slot="configuration">
+    <demo-configuration title="Configuration Options">
+      <div class="control-group">
+        <label>Value</label>
+        <input
+          type="number"
+          [value]="control.value || ''"
+          (input)="control.setValue(+$any($event.target).value || null)"
+        />
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.required()"
+            (change)="control.required.set($any($event.target).checked)"
+          />
+          Required
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.disabled"
+            (change)="
+              control.disabled ? control.enable() : control.disable()
+            "
+          />
+          Disabled
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.label()"
+            (change)="control.label.set($any($event.target).checked)"
+          />
+          Show Label
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>Min Value</label>
+        <input
+          type="number"
+          [value]="control.min() || ''"
+          (input)="control.min.set(+$any($event.target).value || null)"
+        />
+      </div>
+
+      <div class="control-group">
+        <label>Max Value</label>
+        <input
+          type="number"
+          [value]="control.max() || ''"
+          (input)="control.max.set(+$any($event.target).value || null)"
+        />
+      </div>
+
+      <div class="control-group">
+        <label>Icon Before</label>
+        <select
+          [value]="control.iconBefore() || ''"
+          (change)="
+            control.iconBefore.set($any($event.target).value || false)
+          "
+        >
+          <option value="">None</option>
+          <option value="attach_money">Money</option>
+          <option value="percent">Percent</option>
+          <option value="numbers">Numbers</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Icon After</label>
+        <select
+          [value]="control.iconAfter() || ''"
+          (change)="
+            control.iconAfter.set($any($event.target).value || false)
+          "
+        >
+          <option value="">None</option>
+          <option value="euro">Euro</option>
+          <option value="currency_exchange">Currency</option>
+          <option value="calculate">Calculate</option>
+        </select>
+      </div>
+    </demo-configuration>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+
+    <h3>Configuration Values</h3>
+    <div class="json-output">
+      {{
+        {
+          min: control.min(),
+          max: control.max(),
+          required: control.required()
+        } | json
+      }}
+    </div>
+  </div>
+</demo-layout>

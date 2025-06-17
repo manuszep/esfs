@@ -1,0 +1,46 @@
+<div class="overview">
+  <h1>ES Form System - Components Overview</h1>
+  <p>
+    A comprehensive form system built with Angular signals and reactive
+    forms.
+  </p>
+
+  <div class="demo-grid">
+    <div class="demo-section">
+      <h2>Live Demo</h2>
+      <form [esfsFormGroup]="form" class="demo-form">
+        <esfs-field name="text"></esfs-field>
+        <esfs-field name="number"></esfs-field>
+        <esfs-field name="checkbox"></esfs-field>
+        <esfs-field name="dropdown"></esfs-field>
+        <esfs-field name="radio"></esfs-field>
+        <esfs-field name="date"></esfs-field>
+        <esfs-field name="phone"></esfs-field>
+        <esfs-field name="address"></esfs-field>
+      </form>
+    </div>
+
+    <div class="demo-section output-section">
+      <h2>Form State</h2>
+
+      <h3>Value & Validation</h3>
+      <div class="json-output">{{ form.value | json }}</div>
+
+      <h3>Form Status</h3>
+      <div class="status-grid">
+        <div class="status-item">
+          <strong>Valid</strong>
+          <span [class]="form.valid">{{ form.valid }}</span>
+        </div>
+        <div class="status-item">
+          <strong>Dirty</strong>
+          <span [class]="form.dirty">{{ form.dirty }}</span>
+        </div>
+        <div class="status-item">
+          <strong>Touched</strong>
+          <span [class]="form.touched">{{ form.touched }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

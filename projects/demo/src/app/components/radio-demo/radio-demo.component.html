@@ -1,0 +1,16 @@
+<demo-layout
+  title="Radio Button Component"
+  description="A radio button component with customizable options and button-style rendering."
+  [form]="form"
+  fieldName="radioField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="markAllAsTouched()">Mark as Touched</button>
+    <button (click)="toggleButtonStyle()">Toggle Style</button>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+  </div>
+</demo-layout>

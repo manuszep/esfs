@@ -1,0 +1,49 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Core concepts
+
+## The projects folder contains two projects:
+
+- es-form-system: The library you're focused on developing
+- demo: A demo application that will showcase each aspects of the library in a dynamic manner
+
+## Core aspects of the library:
+
+- Angular's FormControl, FormArray and FormGroup are extended to accept configuration objects
+- A single component (`EsfsFieldComponent` component) is used to inject fields in templates. This component's role is to identify the actual component that needs to be rendered
+- Each field type has it's own component that will be rendered through the `EsfsFieldComponent` component
+- A field wrapper will encapsulate fields to handle surrounding elements display (label, help text, icons, errors, ...)
+
+### Signal-Based Reactivity
+
+All configurations use Angular signals for reactive state management. Configuration changes should be immediately reflected in the UI.
+
+### Type-Safe Configuration Classes
+
+Field configuration objects are instanciated from classes. These classes inherit from a common one that will hold all common logic and properties.
+One advantage of such approach is to help users of this library with strong typing and better IDE suggestions.
+
+### Component Composition Over Inheritance
+
+Field components should be composable and reusable. Use the central `EsfsFieldComponent` as a dispatcher rather than creating inheritance hierarchies.
+
+### Configuration-Driven Rendering
+
+Field behavior and appearance are controlled through configuration objects, not hard-coded logic.
+
+### Override Mechanism
+
+Support template-level overrides that take precedence over configuration values.
+
+### Translations
+
+Any text displayed in templates should come from translation files
+
+### Library Development
+
+- Use `npm run build` for production builds
+- Use `npm run watch` for development with file watching
+- Test changes immediately in demo app with `npm run start`

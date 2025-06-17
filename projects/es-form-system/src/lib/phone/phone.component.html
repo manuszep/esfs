@@ -1,18 +1,17 @@
 <esfs-layout
-  class="esfs-phone"
-  [id]="control.guid"
-  [disabled]="control.disabled"
-  [iconBefore]="control.iconBefore()"
-  [iconAfter]="control.iconAfter()"
-  [label]="control.label() ? label() : ''"
-  [textBefore]="control.textBefore() ? textBefore() : ''"
-  [textAfter]="control.textAfter() ? textAfter() : ''"
+  class="esfs-field-phone"
+  [id]="control().guid"
+  [disabled]="control().disabled"
+  [iconBefore]="control().iconBefore()"
+  [iconAfter]="control().iconAfter()"
+  [label]="control().label() ? label() : ''"
+  [textBefore]="control().textBefore() ? textBefore() : ''"
+  [textAfter]="control().textAfter() ? textAfter() : ''"
   [hasError]="!!error()"
-  [multiFields]="true"
-  [value]="control.value"
-  >
-  <form [esfsFormGroup]="subForm">
-    <esfs-dropdown name="code" [control]="codeField" [form]="subForm" (esfsChange)="handleChange($event)"></esfs-dropdown>
-    <esfs-number name="number" [control]="numberField" [form]="subForm" (esfsBlur)="handleBlur()"></esfs-number>
-  </form>
+  [canTypeIn]="true"
+  [value]="control().value">
+  <div [esfsFormGroup]="subForm" class="esfs-field-phone__content">
+    <esfs-dropdown class="esfs-field-phone__content__code" [control]="codeField" name="code" [form]="subForm"></esfs-dropdown>
+    <esfs-number class="esfs-field-phone__content__number" [control]="numberField" name="number" [form]="subForm"></esfs-number>
+  </div>
 </esfs-layout>

@@ -45,16 +45,30 @@ export class EsfsAddressComponent extends EsfsFieldComponentBase<
   protected override setup(): void {
     super.setup();
 
-    const prefix = `${this.control.keyPrefix()}.${this.name.toUpperCase()}`;
+    const prefix = `${this.control().keyPrefix()}.${this.name().toUpperCase()}`;
 
-    this.control.street.keyPrefix.set(prefix);
-    this.control.number.keyPrefix.set(prefix);
-    this.control.city.keyPrefix.set(prefix);
-    this.control.zip.keyPrefix.set(prefix);
-    this.control.country.keyPrefix.set(prefix);
+    this.control().street.keyPrefix.set(prefix);
+    this.control().number.keyPrefix.set(prefix);
+    this.control().city.keyPrefix.set(prefix);
+    this.control().zip.keyPrefix.set(prefix);
+    this.control().country.keyPrefix.set(prefix);
   }
 
   handleChange(value: IEsfsFormControlAddressValue): void {
-    this.esfsChange.emit(value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(value);
+    } else {
+      this.esfsChange.emit(value);
+    }
+  }
+
+  handleBlur(): void {
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
   }
 }

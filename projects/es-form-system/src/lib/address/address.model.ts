@@ -8,7 +8,7 @@ import { EsfsFormControlNumber } from '../number';
 import { EsfsFormControlText } from '../text';
 import { signal, WritableSignal } from '@angular/core';
 import { EsfsFormControlDropdown } from '../dropdown';
-import { esfsPhoneCountries } from '../_common/countries';
+import { esfsCountriesData } from '../_common/countries';
 
 export type IEsfsFormControlAddressConfig = Partial<
   IEsfsSignalConfigToSimpleConfig<EsfsFormControlAddressBase>
@@ -64,10 +64,12 @@ export abstract class EsfsFormControlAddressBase extends EsfsFormGroup<IFormGrou
     const country = new EsfsFormControlDropdown(value.country ?? null, {
       label: false,
       required: false,
-      options: esfsPhoneCountries.map((country) => ({
-        label: `COUNTRY.${country.code}`,
-        value: country.code,
-      })),
+      options: esfsCountriesData
+        .filter((country) => country.code !== '---')
+        .map((country) => ({
+          label: `COUNTRY.${country.code}`,
+          value: country.code,
+        })),
     });
     super(
       {

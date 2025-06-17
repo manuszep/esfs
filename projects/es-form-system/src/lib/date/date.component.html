@@ -1,22 +1,22 @@
 <esfs-layout
-  [id]="control.guid"
-  [disabled]="control.disabled"
-  [iconBefore]="control.iconBefore()"
-  [iconAfter]="control.iconAfter()"
-  [label]="control.label() ? label() : ''"
-  [textBefore]="control.textBefore() ? textBefore() : ''"
-  [textAfter]="control.textAfter() ? textAfter() : ''"
+  [id]="control().guid"
+  [disabled]="control().disabled"
+  [iconBefore]="control().iconBefore()"
+  [iconAfter]="control().iconAfter()"
+  [label]="control().label() ? label() : ''"
+  [textBefore]="control().textBefore() ? textBefore() : ''"
+  [textAfter]="control().textAfter() ? textAfter() : ''"
   [hasError]="!!error()"
-  [value]="control.value"
-  >
+  [value]="control().value"
+  [canTypeIn]="true">
   <input
-    [id]="control.guid"
+    [id]="control().guid"
     type="date"
     [min]="minDate()"
     [max]="maxDate()"
-    [formControl]="control"
+    [formControl]="control()"
     [placeholder]="placeholder() | translate"
     (change)="handleChange($any($event))"
-    (blur)="handleBlur()">
+    (blur)="handleBlur()" />
 </esfs-layout>
 

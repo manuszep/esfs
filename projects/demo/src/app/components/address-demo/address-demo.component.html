@@ -1,0 +1,15 @@
+<demo-layout
+  title="Address Field Component"
+  description="A composite address component with street, number, city, zip, and country fields."
+  [form]="form"
+  fieldName="addressField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="fillSampleAddress()">Fill Sample</button>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+  </div>
+</demo-layout>

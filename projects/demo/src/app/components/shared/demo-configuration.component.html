@@ -1,0 +1,11 @@
+<div class="config-section">
+  <button type="button" class="config-toggle" (click)="toggle()">
+    {{ expanded() ? 'Hide' : 'Show' }} {{ title() }}
+  </button>
+
+  @if (expanded()) {
+  <div class="config-content">
+    <ng-content></ng-content>
+  </div>
+  }
+</div>

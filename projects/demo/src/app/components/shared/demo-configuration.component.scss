@@ -1,0 +1,56 @@
+.config-section {
+  margin-top: 1rem;
+
+  .config-toggle {
+    background: #333;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: left;
+
+    &:hover {
+      background: #444;
+    }
+  }
+
+  .config-content {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #333;
+    border-radius: 4px;
+    display: grid;
+    gap: 1rem;
+  }
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+  }
+
+  input, select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+      border-color: #1976d2;
+      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+    }
+  }
+
+  input[type="checkbox"] {
+    width: auto;
+  }
+}

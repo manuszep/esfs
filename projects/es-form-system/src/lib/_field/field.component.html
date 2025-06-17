@@ -4,11 +4,11 @@
     #fieldContainer
     [ngComponentOutlet]="control.fieldComponent"
     [ngComponentOutletInputs]="{
-      name: name,
+      name: name(),
       form: form,
       control: control,
-      esfsChange: esfsChange,
-      esfsBlur: esfsBlur
+      esfsChangeHandler: handleChange,
+      esfsBlurHandler: handleBlur
     }">
   </ng-container>
 

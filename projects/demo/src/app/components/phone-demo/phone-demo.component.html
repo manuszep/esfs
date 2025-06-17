@@ -1,0 +1,15 @@
+<demo-layout
+  title="Phone Field Component"
+  description="A phone number component with country code selection and number validation."
+  [form]="form"
+  fieldName="phoneField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="fillSamplePhone()">Fill Sample</button>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+  </div>
+</demo-layout>

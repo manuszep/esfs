@@ -1,0 +1,24 @@
+<h3>Control Status</h3>
+<div class="status-grid">
+  <div class="status-item">
+    <strong>Valid</strong>
+    <span [class]="control().valid ? 'true' : 'false'">{{ control().valid }}</span>
+  </div>
+  <div class="status-item">
+    <strong>Dirty</strong>
+    <span [class]="control().dirty ? 'true' : 'false'">{{ control().dirty }}</span>
+  </div>
+  <div class="status-item">
+    <strong>Touched</strong>
+    <span [class]="control().touched ? 'true' : 'false'">{{ control().touched }}</span>
+  </div>
+  <div class="status-item">
+    <strong>Disabled</strong>
+    <span [class]="control().disabled ? 'true' : 'false'">{{ control().disabled }}</span>
+  </div>
+</div>
+
+@if (control().errors) {
+<h3>Validation Errors</h3>
+<div class="json-output">{{ control().errors | json }}</div>
+}

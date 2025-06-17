@@ -36,10 +36,20 @@ export class EsfsTextComponent<TValue = string> extends EsfsFieldComponentBase<
   EsfsFormControlText<TValue>
 > {
   handleChange(): void {
-    this.esfsChange.emit(this.control.value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(this.control().value);
+    } else {
+      this.esfsChange.emit(this.control().value);
+    }
   }
 
   handleBlur(): void {
-    this.esfsBlur.emit();
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
   }
 }

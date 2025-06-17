@@ -2,17 +2,19 @@ import {
   ChangeDetectorRef,
   Component,
   computed,
+  DestroyRef,
   EventEmitter,
-  Input,
-  OnDestroy,
+  inject,
+  input,
   OnInit,
-  Output,
+  output,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EsfsFormControl } from './form-control';
 import { EsfsFormGroup } from './form-group';
 import { FormGroup } from '@angular/forms';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'esfs-field-base',
@@ -21,16 +23,16 @@ import { filter, Subject, takeUntil } from 'rxjs';
 export abstract class EsfsFieldComponentBase<
   TValue,
   TControl extends EsfsFormControl<TValue> | EsfsFormGroup<Record<string, any>>
-> implements OnInit, OnDestroy
+> implements OnInit
 {
-  @Input({ required: true }) control!: TControl;
-  @Input({ required: true }) name!: string;
-  @Input({ required: true }) form!: FormGroup;
+  control = input.required<TControl>();
+  name = input.required<string>();
+  form = input.required<FormGroup>();
+  esfsChangeHandler = input<(value: TValue | null) => void>();
+  esfsBlurHandler = input<() => void>();
 
-  @Input() @Output() public esfsBlur: EventEmitter<void> =
-    new EventEmitter<void>();
-  @Input() @Output() public esfsChange: EventEmitter<TValue | null> =
-    new EventEmitter<TValue | null>();
+  esfsBlur = output<void>();
+  esfsChange = output<TValue | null>();
 
   public isValid = signal(true);
   public error = signal<string | null>('');
@@ -41,46 +43,46 @@ export abstract class EsfsFieldComponentBase<
   public textBefore = signal('').asReadonly();
   public textAfter = signal('').asReadonly();
 
-  protected _unsubscribe = new Subject<void>();
+  protected destroyRef = inject(DestroyRef);
 
   constructor(protected readonly _cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    if (!this.control || !this.name || !this.form) {
+    if (!this.control() || !this.name() || !this.form()) {
       throw new Error('control, name and form are required inputs');
     }
 
-    this.control.events
-      .pipe(
-        takeUntil(this._unsubscribe),
+    this.control()
+      .events.pipe(
+        takeUntilDestroyed(this.destroyRef),
         filter((event: any) => {
           return event.touched || event.status;
         })
       )
       .subscribe((event: any) => {
-        this.isValid.set(this.control.status === 'VALID');
-        this.error.set(
-          this.control.errors ? Object.values(this.control.errors)[0] : null
-        );
+        this.isValid.set(this.control().status === 'VALID');
+        const errors = this.control().errors;
+        this.error.set(errors ? Object.values(errors)[0] : null);
         this._cdRef.markForCheck();
       });
 
     this.setup();
   }
 
-  ngOnDestroy(): void {
-    this._unsubscribe.next();
-    this._unsubscribe.complete();
-  }
-
   protected setup(): void {
-    const ctrl = this.control;
+    const ctrl = this.control();
     const prefix = computed(() => {
       const prefixValue = ctrl.keyPrefix();
+      const nameValue = this.name();
+
+      if (!nameValue || typeof nameValue !== 'string') {
+        console.warn('Invalid name value:', nameValue);
+        return '';
+      }
 
       return prefixValue && prefixValue !== ''
-        ? `${prefixValue}.${this.name.toUpperCase()}`
-        : `${this.name.toUpperCase()}`;
+        ? `${prefixValue}.${nameValue.toUpperCase()}`
+        : `${nameValue.toUpperCase()}`;
     });
 
     this.label = computed(() => `${prefix()}.Q`);

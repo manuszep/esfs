@@ -1,0 +1,110 @@
+<demo-layout
+  title="Dropdown Component"
+  description="A flexible dropdown component with search functionality, custom options, and validation."
+  [form]="form"
+  fieldName="dropdownField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="markAllAsTouched()">Mark as Touched</button>
+  </div>
+
+  <div slot="configuration">
+    <demo-configuration title="Configuration Options">
+      <div class="control-group">
+        <label>Selected Value</label>
+        <input
+          type="text"
+          [value]="control.value || ''"
+          (input)="control.setValue($any($event.target).value || null)"
+        />
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.required()"
+            (change)="control.required.set($any($event.target).checked)"
+          />
+          Required
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.disabled"
+            (change)="
+              control.disabled ? control.enable() : control.disable()
+            "
+          />
+          Disabled
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.searchable()"
+            (change)="
+              control.searchable.set($any($event.target).checked)
+            "
+          />
+          Searchable
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.clearable()"
+            (change)="
+              control.clearable.set($any($event.target).checked)
+            "
+          />
+          Clearable
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="control.label()"
+            (change)="control.label.set($any($event.target).checked)"
+          />
+          Show Label
+        </label>
+      </div>
+
+      <div class="control-group">
+        <label>Options</label>
+        <select (change)="changeOptions($any($event.target).value)">
+          <option value="simple">Simple Options</option>
+          <option value="countries">Countries</option>
+          <option value="colors">Colors</option>
+          <option value="numbers">Numbers</option>
+        </select>
+      </div>
+    </demo-configuration>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+
+    <h3>Configuration Values</h3>
+    <div class="json-output">
+      {{
+        {
+          searchable: control.searchable(),
+          clearable: control.clearable(),
+          required: control.required()
+        } | json
+      }}
+    </div>
+  </div>
+</demo-layout>

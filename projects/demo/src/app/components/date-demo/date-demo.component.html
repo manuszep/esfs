@@ -1,0 +1,15 @@
+<demo-layout
+  title="Date Field Component"
+  description="A date input component with min/max date validation and proper formatting."
+  [form]="form"
+  fieldName="dateField">
+
+  <div slot="actions">
+    <button (click)="resetForm()" class="primary">Reset</button>
+    <button (click)="setToday()">Set Today</button>
+  </div>
+
+  <div slot="output">
+    <demo-status [control]="control"></demo-status>
+  </div>
+</demo-layout>

@@ -1,7 +1,15 @@
-import { Directive, forwardRef, Input, OnInit, Provider } from '@angular/core';
+import {
+  Directive,
+  forwardRef,
+  Input,
+  OnInit,
+  Provider,
+  DestroyRef,
+  inject,
+} from '@angular/core';
 import { ControlContainer, FormGroupDirective } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EsfsFormGroup } from './form-group';
-import { Subscription } from 'rxjs';
 
 const formDirectiveProvider: Provider = {
   provide: ControlContainer,
@@ -25,18 +33,10 @@ export class EsfsFormGroupDirective
 {
   @Input('esfsFormGroup') override form: EsfsFormGroup = null!;
 
-  private formchangesSubscription?: Subscription;
+  private destroyRef = inject(DestroyRef);
 
   public ngOnInit(): void {
     this.setupPersistToSessionStorage();
-  }
-
-  public override ngOnDestroy(): void {
-    super.ngOnDestroy();
-
-    if (this.formchangesSubscription) {
-      this.formchangesSubscription.unsubscribe();
-    }
   }
 
   private setupPersistToSessionStorage(): void {
@@ -51,11 +51,11 @@ export class EsfsFormGroupDirective
         this.form.patchValue(parsedData);
       }
 
-      this.formchangesSubscription = this.form.valueChanges.subscribe(
-        (value) => {
+      this.form.valueChanges
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((value) => {
           sessionStorage.setItem(key, JSON.stringify(value));
-        }
-      );
+        });
     }
   }
 }

@@ -1,20 +1,20 @@
 <esfs-layout
-  [id]="control.guid"
-  [disabled]="control.disabled"
-  [label]="control.label() ? label() : ''"
+  [id]="control().guid"
+  [disabled]="control().disabled"
+  [label]="control().label() ? label() : ''"
   [hasError]="!!error()"
-  [value]="control.value"
-  >
-  <div class="esfs-radio" [class.esfs-radio--button]="control.buttonStyle()">
-    @for (option of control.options | async; track option.label) {
-      <label class="esfs-radio__label">
+  [value]="control().value"
+  [canTypeIn]="false">
+  <div class="esfs-radio" [class.esfs-radio--button]="control().buttonStyle()">
+    @for (option of control().options | async; track option.label) {
+      <label class="esfs-radio__option" [for]="control().guid">
         <input
-          [id]="control.guid"
+          [id]="control().guid"
           type="radio"
-          [formControl]="control"
+          [formControl]="control()"
           [value]="option.value"
-          (change)="handleChange($any($event))">
-        {{ option.label }}
+          (change)="handleChange($any($event))" />
+        <span class="esfs-radio__option__label">{{ option.label | translate }}</span>
       </label>
     }
   </div>

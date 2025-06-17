@@ -54,8 +54,6 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
   public numberField = new EsfsFormControlNumber(null, { required: false });
   public subForm!: EsfsFormGroup;
 
-  private destroyRef = inject(DestroyRef);
-
   protected override setup(): void {
     super.setup();
 
@@ -65,14 +63,21 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
         number: this.numberField,
       },
       {},
-      this.control.keyPrefix(),
+      `${this.control().keyPrefix()}.${this.name().toUpperCase()}`,
       false
     );
 
-    this.mapValueToFields(this.control.value);
+    this.codeField.keyPrefix.set(
+      `${this.control().keyPrefix()}.${this.name().toUpperCase()}`
+    );
+    this.numberField.keyPrefix.set(
+      `${this.control().keyPrefix()}.${this.name().toUpperCase()}`
+    );
 
-    this.control.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.mapValueToFields(this.control().value);
+
+    this.control()
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((value) => {
         this.mapValueToFields(value);
       });
@@ -80,21 +85,13 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
     this.codeField.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.control.setValue(this.mapFieldsToValue(), { emitEvent: false });
-        this.control.markAsTouched();
-        this.control.markAsDirty();
-        this.control.updateValueAndValidity({ emitEvent: false });
-        this.handleChange(this.control.value);
+        this.handleCodeChange();
       });
 
     this.numberField.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.control.setValue(this.mapFieldsToValue(), { emitEvent: false });
-        this.control.markAsTouched();
-        this.control.markAsDirty();
-        this.control.updateValueAndValidity({ emitEvent: false });
-        this.handleChange(this.control.value);
+        this.handleNumberChange();
       });
   }
 
@@ -113,10 +110,36 @@ export class EsfsPhoneComponent extends EsfsFieldComponentBase<
   }
 
   handleChange(value: string | null): void {
-    this.esfsChange.emit(value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(value);
+    } else {
+      this.esfsChange.emit(value);
+    }
   }
 
   handleBlur(): void {
-    this.esfsBlur.emit();
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
+  }
+
+  handleCodeChange(): void {
+    this.control().setValue(this.mapFieldsToValue(), { emitEvent: false });
+    this.control().markAsTouched();
+    this.control().markAsDirty();
+    this.control().updateValueAndValidity({ emitEvent: false });
+    this.handleChange(this.control().value);
+  }
+
+  handleNumberChange(): void {
+    this.control().setValue(this.mapFieldsToValue(), { emitEvent: false });
+    this.control().markAsTouched();
+    this.control().markAsDirty();
+    this.control().updateValueAndValidity({ emitEvent: false });
+    this.handleChange(this.control().value);
   }
 }

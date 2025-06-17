@@ -34,6 +34,20 @@ export class EsfsCheckboxComponent extends EsfsFieldComponentBase<
   EsfsFormControlCheckbox
 > {
   handleChange(event: ValueChangeEvent<boolean>): void {
-    this.esfsChange.emit(event.value);
+    const handler = this.esfsChangeHandler();
+    if (handler) {
+      handler(event.value);
+    } else {
+      this.esfsChange.emit(event.value);
+    }
+  }
+
+  handleBlur(): void {
+    const handler = this.esfsBlurHandler();
+    if (handler) {
+      handler();
+    } else {
+      this.esfsBlur.emit();
+    }
   }
 }

@@ -1,15 +1,15 @@
 <esfs-layout
   class="esfs-field-checkbox"
-  [class.esfs-field-checkbox--toggle]="control.style() === 'toggle'"
-  [id]="control.guid"
-  [disabled]="control.disabled"
-  [label]="control.label() ? label() : ''"
+  [class.esfs-field-checkbox--toggle]="control().style() === 'toggle'"
+  [id]="control().guid"
+  [disabled]="control().disabled"
+  [label]="control().label() ? label() : ''"
   [hasError]="!!error()"
   [canTypeIn]="false"
-  [value]="control.value">
+  [value]="control().value">
   <input
-    [id]="control.guid"
+    [id]="control().guid"
     type="checkbox"
-    [formControl]="control"
+    [formControl]="control()"
     (change)="handleChange($any($event))" />
 </esfs-layout>
