@@ -10,6 +10,7 @@
   [value]="control.value"
   >
   <input
+    #numberInput
     [id]="control.guid"
     type="number"
     step="any"
@@ -17,6 +18,7 @@
     [placeholder]="placeholder() | translate"
     (input)="handleInput($event)"
     (change)="handleChange($any($event))"
-    (blur)="handleBlur()">
+    (blur)="handleBlur()"
+    (focus)="handleFocus()">
 </esfs-layout>
 

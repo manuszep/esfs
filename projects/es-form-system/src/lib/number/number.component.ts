@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { ReactiveFormsModule, ValueChangeEvent } from '@angular/forms';
 
@@ -33,6 +35,9 @@ export class EsfsNumberComponent extends EsfsFieldComponentBase<
   number | null,
   EsfsFormControlNumber
 > {
+  @ViewChild('numberInput', { static: false })
+  numberInput!: ElementRef<HTMLInputElement>;
+
   public handleInput(e: Event): void {
     if (isNaN(Number((e as InputEvent).data))) {
       e.preventDefault();
@@ -45,5 +50,12 @@ export class EsfsNumberComponent extends EsfsFieldComponentBase<
 
   handleBlur(): void {
     this.esfsBlur.emit();
+  }
+
+  handleFocus(): void {
+    // Select the input value if it's 0
+    if (this.control.value === 0 && this.numberInput?.nativeElement) {
+      this.numberInput.nativeElement.select();
+    }
   }
 }
